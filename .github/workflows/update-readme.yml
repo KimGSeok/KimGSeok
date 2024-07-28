@@ -1,0 +1,29 @@
+name: Update README
+
+on:
+  schedule:
+    # 매일 자정에 실행
+    - cron: '0 0 * * *'
+  push:
+    branches:
+      - main
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Generate GitHub Stats
+        run: |
+          curl -o stats.svg "https://github-readme-stats.vercel.app/api?username=KimGSeok&show_icons=true&theme=radical&count_private=true&include_all_commits=true&token=${{ secrets.GH_TOKEN }}"
+          echo "![GitHub stats](./stats.svg)" > README.md
+
+      - name: Commit Changes
+        run: |
+          git config --global user.name 'KimGSeok'
+          git config --global user.email 'rla99tjr@gmail.com'
+          git add README.md
+          git commit -m "Update GitHub stats"
+          git push
