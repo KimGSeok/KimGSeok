@@ -26,9 +26,9 @@ jobs:
         run: |
           echo '# KimGSeok' > README.md
           echo '![KimGSeok'"'"'s GitHub stats](./stats.svg)' >> README.md
+          echo '' >> README.md
           echo '![Top Langs](./top-langs.svg)' >> README.md
           echo '' >> README.md
-          echo ' >> README.md
           echo '**kimGyeongSeok-web/kimGyeongSeok-web** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.' >> README.md
           echo '' >> README.md
           echo 'Here are some ideas to get you started:' >> README.md
