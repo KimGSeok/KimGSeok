@@ -26,7 +26,7 @@ jobs:
         run: |
           git config --global user.name 'KimGSeok'
           git config --global user.email 'rla99tjr@gmail.com'
-          git add stats.svg top-langs.svg README.md
+          git add .
           git commit -m "Update GitHub stats"
           git push
 
