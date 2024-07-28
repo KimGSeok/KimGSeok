@@ -30,6 +30,7 @@ jobs:
           echo '![Top Langs](./top-langs.svg)' >> README.md
           echo '' >> README.md
           echo '**kimGyeongSeok-web/kimGyeongSeok-web** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.' >> README.md
+          echo 'http://github-profile-summary-cards.vercel.app/api/cards/stats?username=KimGSeok&theme=github' >> README.md
           echo '' >> README.md
           echo 'Here are some ideas to get you started:' >> README.md
           echo '' >> README.md
