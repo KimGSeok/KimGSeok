@@ -1,8 +1,8 @@
 # KimGSeok
 ![KimGSeok's GitHub stats](./stats.svg)
+
 ![Top Langs](./top-langs.svg)
 
-<!--
 **kimGyeongSeok-web/kimGyeongSeok-web** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
 Here are some ideas to get you started:
@@ -15,7 +15,6 @@ Here are some ideas to get you started:
 - 📫 How to reach me: ...
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
--->
 
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/>
 <img src="https://img.shields.io/badge/Next-000000?style=flat&logo=nextdotjs&logoColor=white"/>
