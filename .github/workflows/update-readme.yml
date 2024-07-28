@@ -19,8 +19,8 @@ jobs:
         run: |
           curl -o stats.svg "https://github-readme-stats.vercel.app/api?username=KimGSeok&show_icons=true&theme=radical&count_private=true&include_all_commits=true&token=${{ secrets.GH_TOKEN }}"
           curl -o top-langs.svg "https://github-readme-stats.vercel.app/api/top-langs/?username=KimGSeok&token=${{ secrets.GH_TOKEN }}"
-          echo '![KimGSeok's GitHub stats](./stats.svg)' > README.md
-          echo '![Top Langs](./top-langs.svg)' >> README.md
+          echo ![KimGSeok's GitHub stats](./stats.svg) > README.md
+          echo ![Top Langs](./top-langs.svg) >> README.md
           
       - name: Commit Changes
         run: |
