@@ -24,11 +24,6 @@ jobs:
           
       - name: Update README
         run: |
-          
-          echo '**kimGyeongSeok-web/kimGyeongSeok-web** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.' >> README.md
-          echo '' >> README.md
-          echo 'Here are some ideas to get you started:' >> README.md
-          echo '' >> README.md
           echo '## 🔭 Current Projects' >> README.md
           echo '- **[Tensports](Github URL)**: https://github.com/tennispick' >> README.md
           echo '- **[Tensports](Project URL)**: https://tennis-pick.com' >> README.md
