@@ -26,6 +26,7 @@
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white" alt="TypeScript"/>
   <img src="https://img.shields.io/badge/ReactQuery-FF4154?style=flat&logo=reactquery&logoColor=white" alt="React Query"/>
   <img src="https://img.shields.io/badge/Recoil-3578E5?style=flat&logo=recoil&logoColor=white" alt="Recoil"/>
+  <img src="https://img.shields.io/badge/zustand-000000?style=flat&logo=zustand&logoColor=white" alt="zustand"/>
   <img src="https://img.shields.io/badge/Emotion-3578E5?style=flat&logo=emotion&logoColor=white" alt="Emotion"/>
   <img src="https://img.shields.io/badge/TailwindCSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white" alt="Tailwind CSS"/>
   <img src="https://img.shields.io/badge/SASS-CC6699?style=flat&logo=sass&logoColor=white" alt="SASS"/>
