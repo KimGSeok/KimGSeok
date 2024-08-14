@@ -1,21 +1,19 @@
 # KimGSeok
-![KimGSeok's GitHub stats](./stats.svg)
 
-![Top Langs](./top-langs.svg)
+## 🔭 Current Outsourcing Projects
+- [Tensports Github] https://github.com/tennispick
+- [Tensports Project] [https://github.com/tennispick](https://tennis-pick.com/login)
 
-**kimGyeongSeok-web/kimGyeongSeok-web** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+## 🌱 I'm currently learning
+- 쏙쏙 들어오는 함수형 코딩
+- 이펙티브 타입스크립트
+- 자바스크립트 코딩테스트
+- 테스트주도 개발 시작하기
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...d
-- ⚡ Fun fact: ...
-
+## 📫 How to reach me
+- [LinkedIn] www.linkedin.com/in/kimgyeongseok
+- [Email] rla99tjr@gmail.com
+  
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/>
 <img src="https://img.shields.io/badge/Next-000000?style=flat&logo=nextdotjs&logoColor=white"/>
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=white"/>
@@ -33,3 +31,7 @@ Here are some ideas to get you started:
 <!-- BE -->
 <!-- node.js -->
 <!-- nest.js -->
+
+![KimGSeok's GitHub stats](./stats.svg)
+
+![Top Langs](./top-langs.svg)
