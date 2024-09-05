@@ -47,5 +47,12 @@
   <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jquery&logoColor=white" alt="jQuery"/>
 </p>
 
-![KimGSeok's GitHub stats](https://github-readme-stats.vercel.app/api?username=KimGSeok&show_icons=true&theme=radical&count_private=true&include_all_commits=true)
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=KimGSeok&layout=compact)
+### GitHub stats
+<p>
+  ![KimGSeok's GitHub stats](https://github-readme-stats.vercel.app/api?username=KimGSeok&show_icons=true&theme=radical&count_private=true&include_all_commits=true)
+</p>
+
+### GitHub Language
+<p>
+  ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=KimGSeok&layout=compact)
+</p>
