@@ -47,8 +47,5 @@
   <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jquery&logoColor=white" alt="jQuery"/>
 </p>
 
-### GitHub stats
-![KimGSeok's GitHub stats](https://github-readme-stats.vercel.app/api?username=KimGSeok&show_icons=true&theme=radical&count_private=true&include_all_commits=true)
-
 ### GitHub Language
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=KimGSeok&layout=compact)
