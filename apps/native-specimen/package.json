@@ -1,0 +1,28 @@
+{
+  "name": "@kimgseok/native-foundation-specimen",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "@kimgseok/design-button": "workspace:*",
+    "@kimgseok/design-date-picker": "workspace:*",
+    "@kimgseok/design-icons": "workspace:*",
+    "@kimgseok/design-forms": "workspace:*",
+    "@kimgseok/design-feedback": "workspace:*",
+    "@kimgseok/design-overlays": "workspace:*",
+    "@kimgseok/design-navigation": "workspace:*",
+    "@kimgseok/design-primitives": "workspace:*",
+    "@kimgseok/design-tokens": "workspace:*",
+    "expo": "~54.0.0",
+    "react": "19.1.0",
+    "react-native": "0.81.0"
+    ,"react-native-svg": "15.12.1",
+    "react-native-safe-area-context": "5.6.1"
+  },
+  "devDependencies": {
+    "@types/react": "~19.1.10",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  }
+}

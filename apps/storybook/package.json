@@ -1,0 +1,31 @@
+{
+  "name": "@kimgseok/design-system-storybook",
+  "private": true,
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build": "storybook build",
+    "test:stories": "node verify.mjs"
+  },
+  "dependencies": {
+    "@kimgseok/design-button": "workspace:*",
+    "@kimgseok/design-date-picker": "workspace:*",
+    "@kimgseok/design-icons": "workspace:*",
+    "@kimgseok/design-forms": "workspace:*",
+    "@kimgseok/design-feedback": "workspace:*",
+    "@kimgseok/design-overlays": "workspace:*",
+    "@kimgseok/design-navigation": "workspace:*",
+    "@kimgseok/design-primitives": "workspace:*",
+    "@kimgseok/design-tokens": "workspace:*",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "latest",
+    "@storybook/addon-docs": "latest",
+    "@storybook/react-vite": "latest",
+    "axe-core": "^4.10.3",
+    "playwright": "^1.57.0",
+    "storybook": "latest",
+    "vite": "latest"
+  }
+}
