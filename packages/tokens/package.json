@@ -1,0 +1,15 @@
+{
+  "name": "@kimgseok/design-tokens",
+  "version": "0.1.0",
+  "files": ["dist"],
+  "type": "module",
+  "exports": {
+    "./css": "./dist/css/variables.css",
+    "./native": { "types": "./dist/native/index.d.ts", "default": "./dist/native/index.js" },
+    "./tokens": "./dist/tokens.json"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/test.mjs"
+  }
+}

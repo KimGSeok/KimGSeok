@@ -1,0 +1,7 @@
+{
+  "name": "@kimgseok/next-consumer-fixture",
+  "private": true,
+  "scripts": { "build": "next build --webpack", "typecheck": "tsc --noEmit" },
+  "dependencies": { "@kimgseok/design-button": "workspace:*", "@kimgseok/design-date-picker": "workspace:*", "@kimgseok/design-feedback": "workspace:*", "@kimgseok/design-navigation": "workspace:*", "@kimgseok/design-tokens": "workspace:*", "next": "16.3.2", "react": "19.1.0", "react-dom": "19.1.0" },
+  "devDependencies": { "@types/react": "~19.1.10", "@types/react-dom": "~19.1.9", "typescript": "^5.9.3" }
+}

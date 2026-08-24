@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KimGSeok Foundation Specimen</title>
+  </head>
+  <body>
+    <div id="root">
+      <header>
+        <div>
+          <p class="eyebrow">FOUNDATION / WEB</p>
+          <h1>읽기 쉽고, 행동이 분명한 인터페이스</h1>
+          <p class="body">한국어 장문과 다크 모드에서 색상·타이포그래피·상호작용의 기준을 확인합니다.</p>
+        </div>
+        <button class="tertiary" id="theme-toggle" type="button" aria-pressed="false">다크 모드</button>
+      </header>
+      <section aria-labelledby="actions-title">
+        <h2 id="actions-title">Action states</h2>
+        <div class="actions">
+          <button class="primary" type="button">저장하기</button>
+          <button class="secondary" type="button">나중에 하기</button>
+          <button class="tertiary" type="button">자세히 보기</button>
+          <button class="danger" type="button">삭제하기</button>
+          <button class="primary" type="button" disabled>저장하기</button>
+        </div>
+      </section>
+      <section class="surface" aria-labelledby="type-title">
+        <h2 id="type-title">Korean type scale</h2>
+        <p class="title">오늘의 작업을 빠르게 끝내세요</p>
+        <p class="body">본문은 중요한 안내와 맥락을 전달합니다. 고정 폭에서도 읽기 흐름을 유지하고, 말줄임은 정보를 잃어도 되는 경우에만 컴포넌트가 명시적으로 선택합니다.</p>
+        <p class="caption">보조 정보 · 필수 행동이나 오류 원인은 caption에만 두지 않습니다.</p>
+      </section>
+      <section class="status-grid" aria-label="상태 메시지 예시">
+        <p class="status positive"><strong>완료</strong><span>변경사항을 저장했어요.</span></p>
+        <p class="status caution"><strong>확인 필요</strong><span>저장 전 내용을 다시 확인해 주세요.</span></p>
+        <p class="status negative"><strong>저장하지 못했어요</strong><span>잠시 후 다시 시도해 주세요.</span></p>
+        <p class="status info"><strong>안내</strong><span>설정은 언제든 바꿀 수 있어요.</span></p>
+      </section>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

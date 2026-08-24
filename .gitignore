@@ -1,0 +1,8 @@
+packages/*/dist/
+node_modules/
+apps/web-specimen/artifacts/
+apps/storybook/storybook-static/
+apps/*/.next/
+apps/*/tsconfig.tsbuildinfo
+apps/*/.expo/
+apps/storybook/.probe.mjs

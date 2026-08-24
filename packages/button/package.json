@@ -1,0 +1,28 @@
+{
+  "name": "@kimgseok/design-button",
+  "version": "0.1.0",
+  "files": ["dist"],
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "./web": { "types": "./dist/web-button.d.ts", "default": "./dist/web-button.js" },
+    "./native": { "types": "./dist/native-button.d.ts", "default": "./dist/native-button.js" }
+  },
+  "scripts": {
+    "build": "tsup src/web-button.tsx src/native-button.tsx --format esm --dts --out-dir dist --clean --external react --external react-native --external @kimgseok/design-tokens --external @kimgseok/design-icons",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/test.mjs"
+  },
+  "dependencies": {
+    "@kimgseok/design-tokens": "workspace:^",
+    "@kimgseok/design-icons": "workspace:^"
+  },
+  "peerDependencies": {
+    "react": "19.1.0",
+    "react-native": "0.81.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.1.10",
+    "typescript": "^5.9.3"
+  }
+}
