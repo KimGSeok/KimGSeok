@@ -1,6 +1,17 @@
 {
   "name": "@kimgseok/design-navigation",
   "version": "0.1.0",
+  "description": "Cross-platform navigation components for the KimGSeok design system.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KimGSeok/design-system.git",
+    "directory": "packages/navigation"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "files": ["dist"], "sideEffects": false,
   "type": "module",
   "exports": { "./web": { "types": "./dist/web.d.ts", "default": "./dist/web.js" }, "./native": { "types": "./dist/native.d.ts", "default": "./dist/native.js" } },

@@ -39,6 +39,17 @@ try {
       throw new Error(`${name} manifest extraction failed: ${manifest.stderr}`);
     const json = JSON.parse(manifest.stdout);
     if (json.private) throw new Error(`${name} is still private.`);
+    if (
+      json.repository?.url !==
+        "https://github.com/KimGSeok/design-system.git" ||
+      json.repository?.directory !== `packages/${name}`
+    )
+      throw new Error(`${name} pack has invalid repository metadata.`);
+    if (
+      json.publishConfig?.registry !== "https://npm.pkg.github.com" ||
+      json.publishConfig?.access !== "restricted"
+    )
+      throw new Error(`${name} pack is not configured for private GitHub Packages.`);
     if (JSON.stringify(json).includes("workspace:"))
       throw new Error(`${name} pack contains workspace protocol.`);
     const listing = spawnSync("tar", ["-tf", archive], {

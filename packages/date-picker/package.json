@@ -1,6 +1,17 @@
 {
   "name": "@kimgseok/design-date-picker",
   "version": "0.1.0",
+  "description": "Cross-platform calendar and date-picker components for the KimGSeok design system.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KimGSeok/design-system.git",
+    "directory": "packages/date-picker"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "files": ["dist"],
   "sideEffects": false,
   "type": "module",

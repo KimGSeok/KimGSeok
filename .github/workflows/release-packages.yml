@@ -1,0 +1,60 @@
+name: Release private design-system packages
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: private-design-system-package-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.repository == 'KimGSeok/design-system' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+      pull-requests: write
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.7.1
+          run_install: false
+
+      - name: Set up Node.js and GitHub Packages
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://npm.pkg.github.com
+          scope: '@kimgseok'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium for release checks
+        run: pnpm --filter @kimgseok/design-system-storybook exec playwright install --with-deps chromium
+
+      - name: Verify release candidate
+        run: pnpm check
+
+      - name: Create release PR or publish packages
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+          version: pnpm version-packages
+          commit: 'chore: release design-system packages'
+          title: 'chore: release design-system packages'
+          createGithubReleases: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
