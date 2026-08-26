@@ -32,7 +32,7 @@ component names or props.
 
 - Web: `Overlays/MenuDefault`, `MenuControlled`, and `MenuDark`
 - Native: `apps/native-specimen/App.tsx`
-- Contract checks: `packages/overlays/scripts/test.mjs`
+- Contract checks: `packages/design-systems/components/overlays/scripts/test.mjs`
 
 ## Toss gaps and Ask
 

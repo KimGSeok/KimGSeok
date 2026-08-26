@@ -1,7 +1,8 @@
 # Constraints
 
-- This repository is not yet a JavaScript workspace; do not claim a build or
-  runtime check until one exists.
+- This repository is a pnpm workspace. Keep the profile repository concerns at
+  the root and isolate reusable design-system code under
+  `packages/design-systems`.
 - Preserve the existing profile workflow and generated SVGs.
 - Never copy source, Figma assets, logos, or icon sets from Toss, Daangn, or
   Wanted. The user explicitly approved using the public Toss TDS colour palette

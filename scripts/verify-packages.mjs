@@ -4,23 +4,26 @@ import { join } from "node:path";
 import { spawnSync } from "node:child_process";
 
 const packages = [
-  "tokens",
-  "icons",
-  "button",
-  "primitives",
-  "forms",
-  "feedback",
-  "overlays",
-  "navigation",
-  "date-picker",
-  "catalog",
+  ["tokens", "foundation/tokens"],
+  ["icons", "foundation/icons"],
+  ["button", "components/button"],
+  ["primitives", "primitives"],
+  ["forms", "components/forms"],
+  ["feedback", "components/feedback"],
+  ["overlays", "components/overlays"],
+  ["navigation", "components/navigation"],
+  ["date-picker", "components/date-picker"],
+  ["catalog", "catalog"],
 ];
 const destination = mkdtempSync(join(tmpdir(), "kimgseok-design-pack-"));
 
 try {
   const archives = {};
-  for (const name of packages) {
-    const cwd = new URL(`../packages/${name}/`, import.meta.url);
+  for (const [name, directory] of packages) {
+    const cwd = new URL(
+      `../packages/design-systems/${directory}/`,
+      import.meta.url,
+    );
     const packed = spawnSync(
       "pnpm",
       ["pack", "--pack-destination", destination],

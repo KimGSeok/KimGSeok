@@ -29,7 +29,7 @@ tokens instead of exposing arbitrary palette colours.
 
 - Web: `Forms/SliderDefault`, `SliderDisabled`, and `SliderDark`
 - Native: `apps/native-specimen/App.tsx`
-- Contract and normalization checks: `packages/forms/scripts/test.mjs`
+- Contract and normalization checks: `packages/design-systems/components/forms/scripts/test.mjs`
 
 ## Toss gaps and Ask
 

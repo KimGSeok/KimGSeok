@@ -7,7 +7,7 @@ const root = resolve(import.meta.dirname);
 const files = {
   '/': ['index.html', 'text/html; charset=utf-8'],
   '/specimen.css': ['specimen.css', 'text/css; charset=utf-8'],
-  '/tokens.css': ['../../packages/tokens/dist/css/variables.css', 'text/css; charset=utf-8']
+  '/tokens.css': ['../../packages/design-systems/foundation/tokens/dist/css/variables.css', 'text/css; charset=utf-8']
 };
 
 createServer(async (request, response) => {
