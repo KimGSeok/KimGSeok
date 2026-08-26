@@ -1,6 +1,17 @@
 {
   "name": "@kimgseok/design-primitives",
   "version": "0.1.0",
+  "description": "Cross-platform layout and content primitives for the KimGSeok design system.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KimGSeok/design-system.git",
+    "directory": "packages/design-systems/primitives"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "files": ["dist"],
   "sideEffects": false,
   "type": "module",

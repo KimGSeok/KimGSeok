@@ -9,10 +9,15 @@
     "design-docs": "pnpm --filter @kimgseok/design-docs dev",
     "build:design-docs": "pnpm --filter @kimgseok/design-docs build",
     "test": "pnpm -r --if-present test",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "node scripts/release-packages.mjs",
     "verify:packages": "node scripts/verify-packages.mjs",
-    "check": "pnpm build && pnpm verify:packages && pnpm test && pnpm --filter @kimgseok/design-button typecheck && pnpm --filter @kimgseok/design-icons typecheck && pnpm --filter @kimgseok/design-primitives typecheck && pnpm --filter @kimgseok/design-forms typecheck && pnpm --filter @kimgseok/design-feedback typecheck && pnpm --filter @kimgseok/design-overlays typecheck && pnpm --filter @kimgseok/design-navigation typecheck && pnpm --filter @kimgseok/design-date-picker typecheck && pnpm --filter @kimgseok/design-catalog typecheck && pnpm --filter @kimgseok/design-docs typecheck && pnpm --filter @kimgseok/next-consumer-fixture typecheck && pnpm --filter @kimgseok/native-foundation-specimen typecheck && pnpm --filter @kimgseok/design-system-storybook test:stories && pnpm --filter @kimgseok/web-foundation-specimen test:visual"
+    "verify:publishing": "node scripts/verify-publishing-config.mjs",
+    "check": "pnpm build && pnpm verify:packages && pnpm verify:publishing && pnpm test && pnpm --filter @kimgseok/design-button typecheck && pnpm --filter @kimgseok/design-icons typecheck && pnpm --filter @kimgseok/design-primitives typecheck && pnpm --filter @kimgseok/design-forms typecheck && pnpm --filter @kimgseok/design-feedback typecheck && pnpm --filter @kimgseok/design-overlays typecheck && pnpm --filter @kimgseok/design-navigation typecheck && pnpm --filter @kimgseok/design-date-picker typecheck && pnpm --filter @kimgseok/design-catalog typecheck && pnpm --filter @kimgseok/design-docs typecheck && pnpm --filter @kimgseok/next-consumer-fixture typecheck && pnpm --filter @kimgseok/native-foundation-specimen typecheck && pnpm --filter @kimgseok/design-system-storybook test:stories && pnpm --filter @kimgseok/web-foundation-specimen test:visual"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.31.1",
     "tsup": "^8.5.1"
   }
 }

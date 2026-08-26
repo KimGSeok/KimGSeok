@@ -1,6 +1,17 @@
 {
   "name": "@kimgseok/design-icons",
   "version": "0.1.0",
+  "description": "Cross-platform icon primitives for the KimGSeok design system.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KimGSeok/design-system.git",
+    "directory": "packages/design-systems/foundation/icons"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "files": ["dist"], "sideEffects": false, "type": "module",
   "exports": { "./names": { "types": "./dist/paths.d.ts", "default": "./dist/paths.js" }, "./web": { "types": "./dist/web.d.ts", "default": "./dist/web.js" }, "./native": { "types": "./dist/native.d.ts", "default": "./dist/native.js" } },
   "scripts": { "build": "tsup src/paths.ts src/web.tsx src/native.tsx --format esm --dts --out-dir dist --clean --external react --external react-native --external react-native-svg", "typecheck": "tsc --noEmit", "test": "node scripts/test.mjs" },

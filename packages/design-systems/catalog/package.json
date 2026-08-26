@@ -1,6 +1,17 @@
 {
   "name": "@kimgseok/design-catalog",
   "version": "0.1.0",
+  "description": "Machine-readable component catalog for the KimGSeok design system.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KimGSeok/design-system.git",
+    "directory": "packages/design-systems/catalog"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "files": ["dist"], "sideEffects": false,
   "type": "module",
   "exports": { ".": { "types": "./dist/registry.d.ts", "default": "./dist/registry.js" } },
