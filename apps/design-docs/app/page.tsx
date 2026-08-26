@@ -1,20 +1,17 @@
-"use client";
-
-import { Badge } from "@kimgseok/design-primitives/web";
 import Link from "next/link";
-import {
-  catalog,
-  catalogCategories,
-  catalogSummary,
-  foundationDimensions,
-} from "@kimgseok/design-catalog";
+import { catalog } from "@kimgseok/design-catalog";
 import { ComponentPreview } from "./ComponentPreview";
 
-const componentGroups = catalogCategories.filter(
-  ({ category }) => !["Foundation", "Patterns"].includes(category),
+const stableComponents = catalog.filter(
+  ({ layer, maturity, name }) =>
+    maturity === "stable" && layer !== "pattern" && name !== "Tokens",
 );
-const patterns = catalog.filter(({ layer }) => layer === "pattern");
-
+const sharedComponents = stableComponents.filter(
+  ({ platforms }) => platforms.includes("web") && platforms.includes("native"),
+);
+const webOnlyComponents = stableComponents.filter(
+  ({ platforms }) => platforms.length === 1 && platforms[0] === "web",
+);
 export default function Home() {
   return (
     <main id="main-content">
@@ -22,143 +19,66 @@ export default function Home() {
         <div className="hero-copy">
           <p className="eyebrow">WEB + REACT NATIVE</p>
           <h1 id="hero-title">
-            제품을 빠르게 만들고,
-            <br />
-            같은 기준으로 완성합니다.
+            제품보다 먼저 합의하는<br />공통 UI 계약입니다.
           </h1>
           <p className="hero-description">
-            Toss의 공개 디자인 원칙을 구현 기준으로 번역한 개인 디자인
-            시스템입니다. 공통 계약을 공유하고 Web과 Native의 사용 방식은 각
-            플랫폼에 맞춥니다.
+            Web과 React Native가 의미와 상태를 공유하고, 플랫폼별 상호작용은
+            각 환경의 기준에 맞게 구현합니다.
           </p>
+          <form action="/components" className="home-search">
+            <label htmlFor="home-component-query">컴포넌트 검색</label>
+            <div>
+              <input
+                id="home-component-query"
+                name="q"
+                placeholder="Button, 토스트, 날짜…"
+                type="search"
+              />
+              <button type="submit">찾기</button>
+            </div>
+          </form>
           <div className="hero-meta" aria-label="디자인 시스템 현재 상태">
-            <Badge label="Registry-driven" tone="positive" />
-            <span>
-              {catalogSummary.foundation} Foundation ·{" "}
-              {catalogSummary.primitive} Primitive · {catalogSummary.composite}{" "}
-              Composite
-            </span>
+            <strong>{stableComponents.length} stable components</strong>
+            <span aria-hidden="true">·</span>
+            <span>{sharedComponents.length} Web + Native</span>
+            <span aria-hidden="true">·</span>
+            <span>{webOnlyComponents.length} Web only</span>
           </div>
         </div>
         <ComponentPreview />
       </section>
 
-      <section
-        className="section"
-        id="foundations"
-        aria-labelledby="foundations-title"
-      >
-        <div className="section-heading">
-          <p className="eyebrow">01 / FOUNDATIONS</p>
-          <h2 id="foundations-title">표현보다 먼저 합의하는 기반</h2>
-          <p>
-            원시 값을 직접 사용하지 않고 의미와 역할을 통해 제품의 일관성을
-            유지합니다.
-          </p>
-        </div>
-        <div className="foundation-grid">
-          {foundationDimensions.map((item, index) => (
-            <article key={item}>
-              <span>0{index + 1}</span>
-              <h3>{item}</h3>
-              <p>Semantic tokens · Light/Dark · Web/Native</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section
-        className="section"
-        id="components"
-        aria-labelledby="components-title"
-      >
+      <section className="section home-discovery" aria-labelledby="discovery-title">
         <div className="section-heading split-heading">
           <div>
-            <p className="eyebrow">02 / COMPONENTS</p>
-            <h2 id="components-title">제품 제작에 필요한 구성 요소</h2>
+            <p className="eyebrow">DOCUMENTATION</p>
+            <h2 id="discovery-title">문서는 사용 순서로 탐색합니다.</h2>
           </div>
           <p>
-            상태, 접근성, 비동기 동작과 플랫폼 차이를 컴포넌트 계약에
-            포함했습니다.
+            코드의 폴더 경계와 문서의 탐색 구조를 분리했습니다. 문서에서는
+            기초 계약을 익힌 뒤 이름으로 컴포넌트를 찾습니다.
           </p>
         </div>
-        <div className="component-grid">
-          {componentGroups.map((group) => (
-            <article id={group.category.toLowerCase()} key={group.category}>
-              <div>
-                <h3>{group.category}</h3>
-                <span>{group.entries.length}</span>
-              </div>
-              <ul className="catalog-list">
-                {group.entries.map((entry) => (
-                  <li key={entry.slug}>
-                    <Link href={`/components/${entry.slug}`}><strong>{entry.name}</strong></Link>
-                    <span>
-                      {entry.layer} · {entry.maturity} ·{" "}
-                      {entry.platforms.join("/")}
-                    </span>
-                    <code>
-                      {Object.entries(entry.importPaths)
-                        .map(([platform, path]) => `${platform}: ${path}`)
-                        .join(" · ")}
-                    </code>
-                    <small>
-                      Catalogue T/S/M:{" "}
-                      {entry.cataloguePresence.toss ? "yes" : "no"}/
-                      {entry.cataloguePresence.seed ? "yes" : "no"}/
-                      {entry.cataloguePresence.montage ? "yes" : "no"}
-                    </small>
-                    <small>
-                      {entry.authority} · {entry.gap}
-                    </small>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+        <div className="discovery-grid">
+          <article className="discovery-card discovery-card-primary">
+            <span>01</span>
+            <h3>시작하기</h3>
+            <p>설치와 플랫폼별 import 경계를 먼저 확인합니다.</p>
+            <Link href="/getting-started">사용 준비하기 <span aria-hidden="true">→</span></Link>
+          </article>
+          <article className="discovery-card">
+            <span>02</span>
+            <h3>파운데이션</h3>
+            <p>Colors와 Typography의 semantic token 계약을 확인합니다.</p>
+            <Link href="/foundation">파운데이션 보기 <span aria-hidden="true">→</span></Link>
+          </article>
+          <article className="discovery-card">
+            <span>03</span>
+            <h3>컴포넌트</h3>
+            <p>주된 사용자 역할별 그룹으로 훑고, 전체 stable 목록은 A–Z로 검색합니다.</p>
+            <Link href="/components">전체 컴포넌트 찾기 <span aria-hidden="true">→</span></Link>
+          </article>
         </div>
-      </section>
-
-      <section
-        className="section principles"
-        id="patterns"
-        aria-labelledby="patterns-title"
-      >
-        <div className="section-heading">
-          <p className="eyebrow">03 / PATTERNS</p>
-          <h2 id="patterns-title">컴포넌트를 넘어 제품의 흐름까지</h2>
-        </div>
-        <ol>
-          {patterns.map((entry, index) => (
-            <li key={entry.slug}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <div>
-                <h3>{entry.name}</h3>
-                <p>{entry.description}</p>
-                <small>
-                  {entry.maturity} · consumer composition · {entry.gap}
-                </small>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section
-        className="section platform-section"
-        id="platforms"
-        aria-labelledby="platforms-title"
-      >
-        <div>
-          <p className="eyebrow">04 / PLATFORMS</p>
-          <h2 id="platforms-title">
-            같아야 할 것과 달라야 할 것을 구분합니다.
-          </h2>
-        </div>
-        <p>
-          색상, 의미, 상태와 결과는 공유합니다. 키보드, 터치, picker, safe
-          area와 스크린리더 안내는 플랫폼 규칙을 따릅니다.
-        </p>
       </section>
     </main>
   );

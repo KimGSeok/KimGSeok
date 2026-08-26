@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "@kimgseok/design-tokens/css";
 import "./globals.css";
+import { DocsSidebar } from "./DocsSidebar";
+import { storybookUrl } from "./documentation-links";
+import { docsNavigation } from "./docs-navigation";
 
 export const metadata: Metadata = {
   title: {
@@ -11,17 +14,6 @@ export const metadata: Metadata = {
   description:
     "Toss의 공개 원칙을 구현 기준으로 삼은 Web 및 React Native 디자인 시스템입니다.",
 };
-
-const navigation = [
-  { href: "/", label: "Overview" },
-  { href: "/#foundations", label: "Foundations" },
-  { href: "/#components", label: "Components" },
-  { href: "/#patterns", label: "Patterns" },
-  { href: "/#platforms", label: "Platforms" },
-];
-
-const storybookUrl = process.env.NEXT_PUBLIC_STORYBOOK_URL ??
-  (process.env.NODE_ENV === "development" ? "http://localhost:6006" : null);
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -34,11 +26,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <span>Design System</span>
           </Link>
           <nav aria-label="주요 문서">
-            {navigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
+            {docsNavigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
           </nav>
           {storybookUrl ? <a className="storybook-link" href={storybookUrl}>Storybook <span aria-hidden="true">↗</span></a> : <span />}
         </header>
-        {children}
+        <div className="docs-shell">
+          <DocsSidebar />
+          <div className="docs-content">{children}</div>
+        </div>
       </body>
     </html>
   );

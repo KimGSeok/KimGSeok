@@ -19,24 +19,24 @@ importers:
     dependencies:
       '@kimgseok/design-button':
         specifier: workspace:*
-        version: link:../../packages/button
+        version: link:../../packages/design-systems/components/button
       '@kimgseok/design-catalog':
         specifier: workspace:*
-        version: link:../../packages/catalog
+        version: link:../../packages/design-systems/catalog
       '@kimgseok/design-date-picker':
         specifier: workspace:*
-        version: link:../../packages/date-picker
+        version: link:../../packages/design-systems/components/date-picker
       '@kimgseok/design-feedback':
         specifier: workspace:*
-        version: link:../../packages/feedback
+        version: link:../../packages/design-systems/components/feedback
       '@kimgseok/design-primitives':
         specifier: workspace:*
-        version: link:../../packages/primitives
+        version: link:../../packages/design-systems/primitives
       '@kimgseok/design-tokens':
         specifier: workspace:*
-        version: link:../../packages/tokens
+        version: link:../../packages/design-systems/foundation/tokens
       next:
-        specifier: latest
+        specifier: 16.3.2
         version: 16.3.2(@types/node@24.13.3)(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
         specifier: 19.1.0
@@ -62,31 +62,31 @@ importers:
     dependencies:
       '@kimgseok/design-button':
         specifier: workspace:*
-        version: link:../../packages/button
+        version: link:../../packages/design-systems/components/button
       '@kimgseok/design-date-picker':
         specifier: workspace:*
-        version: link:../../packages/date-picker
+        version: link:../../packages/design-systems/components/date-picker
       '@kimgseok/design-feedback':
         specifier: workspace:*
-        version: link:../../packages/feedback
+        version: link:../../packages/design-systems/components/feedback
       '@kimgseok/design-forms':
         specifier: workspace:*
-        version: link:../../packages/forms
+        version: link:../../packages/design-systems/components/forms
       '@kimgseok/design-icons':
         specifier: workspace:*
-        version: link:../../packages/icons
+        version: link:../../packages/design-systems/foundation/icons
       '@kimgseok/design-navigation':
         specifier: workspace:*
-        version: link:../../packages/navigation
+        version: link:../../packages/design-systems/components/navigation
       '@kimgseok/design-overlays':
         specifier: workspace:*
-        version: link:../../packages/overlays
+        version: link:../../packages/design-systems/components/overlays
       '@kimgseok/design-primitives':
         specifier: workspace:*
-        version: link:../../packages/primitives
+        version: link:../../packages/design-systems/primitives
       '@kimgseok/design-tokens':
         specifier: workspace:*
-        version: link:../../packages/tokens
+        version: link:../../packages/design-systems/foundation/tokens
       expo:
         specifier: ~54.0.0
         version: 54.0.36(@babel/core@7.29.7)(react-native@0.81.0(@babel/core@7.29.7)(@react-native/metro-config@0.87.0(@babel/core@7.29.7))(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)(typescript@5.9.3)
@@ -114,19 +114,19 @@ importers:
     dependencies:
       '@kimgseok/design-button':
         specifier: workspace:*
-        version: link:../../packages/button
+        version: link:../../packages/design-systems/components/button
       '@kimgseok/design-date-picker':
         specifier: workspace:*
-        version: link:../../packages/date-picker
+        version: link:../../packages/design-systems/components/date-picker
       '@kimgseok/design-feedback':
         specifier: workspace:*
-        version: link:../../packages/feedback
+        version: link:../../packages/design-systems/components/feedback
       '@kimgseok/design-navigation':
         specifier: workspace:*
-        version: link:../../packages/navigation
+        version: link:../../packages/design-systems/components/navigation
       '@kimgseok/design-tokens':
         specifier: workspace:*
-        version: link:../../packages/tokens
+        version: link:../../packages/design-systems/foundation/tokens
       next:
         specifier: 16.3.2
         version: 16.3.2(@types/node@26.2.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -151,31 +151,31 @@ importers:
     dependencies:
       '@kimgseok/design-button':
         specifier: workspace:*
-        version: link:../../packages/button
+        version: link:../../packages/design-systems/components/button
       '@kimgseok/design-date-picker':
         specifier: workspace:*
-        version: link:../../packages/date-picker
+        version: link:../../packages/design-systems/components/date-picker
       '@kimgseok/design-feedback':
         specifier: workspace:*
-        version: link:../../packages/feedback
+        version: link:../../packages/design-systems/components/feedback
       '@kimgseok/design-forms':
         specifier: workspace:*
-        version: link:../../packages/forms
+        version: link:../../packages/design-systems/components/forms
       '@kimgseok/design-icons':
         specifier: workspace:*
-        version: link:../../packages/icons
+        version: link:../../packages/design-systems/foundation/icons
       '@kimgseok/design-navigation':
         specifier: workspace:*
-        version: link:../../packages/navigation
+        version: link:../../packages/design-systems/components/navigation
       '@kimgseok/design-overlays':
         specifier: workspace:*
-        version: link:../../packages/overlays
+        version: link:../../packages/design-systems/components/overlays
       '@kimgseok/design-primitives':
         specifier: workspace:*
-        version: link:../../packages/primitives
+        version: link:../../packages/design-systems/primitives
       '@kimgseok/design-tokens':
         specifier: workspace:*
-        version: link:../../packages/tokens
+        version: link:../../packages/design-systems/foundation/tokens
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -209,10 +209,10 @@ importers:
     dependencies:
       '@kimgseok/design-button':
         specifier: workspace:*
-        version: link:../../packages/button
+        version: link:../../packages/design-systems/components/button
       '@kimgseok/design-tokens':
         specifier: workspace:*
-        version: link:../../packages/tokens
+        version: link:../../packages/design-systems/foundation/tokens
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -230,14 +230,20 @@ importers:
         specifier: latest
         version: 8.2.2(@types/node@26.2.0)(esbuild@0.28.2)(terser@5.50.0)(yaml@2.9.0)
 
-  packages/button:
+  packages/design-systems/catalog:
+    devDependencies:
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/design-systems/components/button:
     dependencies:
       '@kimgseok/design-icons':
         specifier: workspace:^
-        version: link:../icons
+        version: link:../../foundation/icons
       '@kimgseok/design-tokens':
         specifier: workspace:^
-        version: link:../tokens
+        version: link:../../foundation/tokens
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -252,20 +258,14 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/catalog:
-    devDependencies:
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/date-picker:
+  packages/design-systems/components/date-picker:
     dependencies:
       '@kimgseok/design-overlays':
         specifier: workspace:^
         version: link:../overlays
       '@kimgseok/design-tokens':
         specifier: workspace:^
-        version: link:../tokens
+        version: link:../../foundation/tokens
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -283,11 +283,11 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/feedback:
+  packages/design-systems/components/feedback:
     dependencies:
       '@kimgseok/design-tokens':
         specifier: workspace:^
-        version: link:../tokens
+        version: link:../../foundation/tokens
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -305,14 +305,14 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/forms:
+  packages/design-systems/components/forms:
     dependencies:
       '@kimgseok/design-icons':
         specifier: workspace:^
-        version: link:../icons
+        version: link:../../foundation/icons
       '@kimgseok/design-tokens':
         specifier: workspace:^
-        version: link:../tokens
+        version: link:../../foundation/tokens
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -327,36 +327,17 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/icons:
-    dependencies:
-      react:
-        specifier: 19.1.0
-        version: 19.1.0
-      react-native:
-        specifier: 0.81.0
-        version: 0.81.0(@babel/core@7.29.7)(@react-native/metro-config@0.87.0(@babel/core@7.29.7))(@types/react@19.1.17)(react@19.1.0)
-      react-native-svg:
-        specifier: 15.12.1
-        version: 15.12.1(react-native@0.81.0(@babel/core@7.29.7)(@react-native/metro-config@0.87.0(@babel/core@7.29.7))(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
-    devDependencies:
-      '@types/react':
-        specifier: ~19.1.10
-        version: 19.1.17
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/navigation:
+  packages/design-systems/components/navigation:
     dependencies:
       '@kimgseok/design-icons':
         specifier: workspace:^
-        version: link:../icons
+        version: link:../../foundation/icons
       '@kimgseok/design-primitives':
         specifier: workspace:^
-        version: link:../primitives
+        version: link:../../primitives
       '@kimgseok/design-tokens':
         specifier: workspace:^
-        version: link:../tokens
+        version: link:../../foundation/tokens
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -374,14 +355,14 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/overlays:
+  packages/design-systems/components/overlays:
     dependencies:
       '@kimgseok/design-button':
         specifier: workspace:^
         version: link:../button
       '@kimgseok/design-tokens':
         specifier: workspace:^
-        version: link:../tokens
+        version: link:../../foundation/tokens
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -405,17 +386,38 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/primitives:
+  packages/design-systems/foundation/icons:
+    dependencies:
+      react:
+        specifier: 19.1.0
+        version: 19.1.0
+      react-native:
+        specifier: 0.81.0
+        version: 0.81.0(@babel/core@7.29.7)(@react-native/metro-config@0.87.0(@babel/core@7.29.7))(@types/react@19.1.17)(react@19.1.0)
+      react-native-svg:
+        specifier: 15.12.1
+        version: 15.12.1(react-native@0.81.0(@babel/core@7.29.7)(@react-native/metro-config@0.87.0(@babel/core@7.29.7))(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+    devDependencies:
+      '@types/react':
+        specifier: ~19.1.10
+        version: 19.1.17
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/design-systems/foundation/tokens: {}
+
+  packages/design-systems/primitives:
     dependencies:
       '@kimgseok/design-button':
         specifier: workspace:^
-        version: link:../button
+        version: link:../components/button
       '@kimgseok/design-icons':
         specifier: workspace:^
-        version: link:../icons
+        version: link:../foundation/icons
       '@kimgseok/design-tokens':
         specifier: workspace:^
-        version: link:../tokens
+        version: link:../foundation/tokens
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -429,8 +431,6 @@ importers:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
-
-  packages/tokens: {}
 
 packages:
 
@@ -2542,10 +2542,12 @@ packages:
   '@xmldom/xmldom@0.8.14':
     resolution: {integrity: sha512-T4EDRUBVZYRldYApjEJiU0e1stYWaRAX7CuSnKzrpwdZKo53zGV8/pqfzV6FfwNl9YThD2OumQYvqtvjvgG7aQ==}
     engines: {node: '>=10.0.0'}
+    deprecated: this version has critical issues, please update to the latest version
 
   '@xmldom/xmldom@0.9.11':
     resolution: {integrity: sha512-tW8bcK3hsG0/uqSnNz6TK4BkcuZSezoU7DlnYssILmZDktPnSHHuDJJFM0AJv+13gz2r0iGdrj6qqKeUnxXEDg==}
     engines: {node: '>=14.6'}
+    deprecated: this version has critical issues, please update to the latest version
 
   abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}

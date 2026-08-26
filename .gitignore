@@ -1,4 +1,4 @@
-packages/*/dist/
+packages/design-systems/**/dist/
 node_modules/
 apps/web-specimen/artifacts/
 apps/storybook/storybook-static/

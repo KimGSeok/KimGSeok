@@ -1,0 +1,26 @@
+{
+  "name": "@kimgseok/design-tokens",
+  "version": "0.1.0",
+  "description": "Cross-platform design tokens and CSS variables for the KimGSeok design system.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KimGSeok/design-system.git",
+    "directory": "packages/design-systems/foundation/tokens"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "files": ["dist"],
+  "type": "module",
+  "exports": {
+    "./css": "./dist/css/variables.css",
+    "./native": { "types": "./dist/native/index.d.ts", "default": "./dist/native/index.js" },
+    "./tokens": "./dist/tokens.json"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/test.mjs"
+  }
+}

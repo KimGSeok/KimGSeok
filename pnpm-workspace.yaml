@@ -1,3 +1,6 @@
 packages:
-  - packages/*
+  - packages/design-systems/foundation/*
+  - packages/design-systems/primitives
+  - packages/design-systems/components/*
+  - packages/design-systems/catalog
   - apps/*

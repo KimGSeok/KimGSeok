@@ -11,8 +11,9 @@ Toss TDS as the component implementation authority. Daangn SEED and Wanted
 Montage are catalogue, architecture, and evidence references; they are not
 equal implementation authorities.
 
-The recommended delivery location is a dedicated `KimGSeok/design-system`
-repository. This profile repository may later link to its docs and package.
+The design system currently shares this profile repository with other concerns.
+Its source is isolated under `packages/design-systems`; applications remain
+under the root `apps` workspace.
 
 The system originated from a Loci admin workbench that combined Apple-informed
 product sensitivity, Toss/SEED catalogue mapping, Web/App export audits, and

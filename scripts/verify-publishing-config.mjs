@@ -6,23 +6,29 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const expectedRepository = "https://github.com/KimGSeok/design-system.git";
 const expectedRegistry = "https://npm.pkg.github.com";
 const packageDirectories = [
-  "tokens",
-  "icons",
-  "button",
+  "foundation/tokens",
+  "foundation/icons",
+  "components/button",
   "primitives",
-  "forms",
-  "feedback",
-  "overlays",
-  "navigation",
-  "date-picker",
+  "components/forms",
+  "components/feedback",
+  "components/overlays",
+  "components/navigation",
+  "components/date-picker",
   "catalog",
 ];
 const errors = [];
 
 for (const directory of packageDirectories) {
-  const path = join(root, "packages", directory, "package.json");
+  const path = join(
+    root,
+    "packages",
+    "design-systems",
+    directory,
+    "package.json",
+  );
   const manifest = JSON.parse(readFileSync(path, "utf8"));
-  const label = `packages/${directory}/package.json`;
+  const label = `packages/design-systems/${directory}/package.json`;
 
   expect(
     manifest.name === manifest.name?.toLowerCase() &&
@@ -35,7 +41,7 @@ for (const directory of packageDirectories) {
   expect(
     manifest.repository?.type === "git" &&
       manifest.repository?.url === expectedRepository &&
-      manifest.repository?.directory === `packages/${directory}`,
+      manifest.repository?.directory === `packages/design-systems/${directory}`,
     `${label}: repository metadata must target the dedicated design-system repository`,
   );
   expect(
