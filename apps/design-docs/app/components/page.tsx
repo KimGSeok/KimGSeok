@@ -27,7 +27,7 @@ export default async function ComponentsPage({
     <main id="main-content" className="catalog-page">
       <header className="catalog-hero">
         <p className="eyebrow">COMPONENTS</p>
-        <h1>필요한 컴포넌트를<br />바로 찾으세요.</h1>
+        <h1>필요한 컴포넌트를 바로 찾으세요.</h1>
         <p>
           이름이나 역할로 검색하고 플랫폼을 확인한 뒤, 상세 계약과 실제 상태
           증거로 이동할 수 있습니다.

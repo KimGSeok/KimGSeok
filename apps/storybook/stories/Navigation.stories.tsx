@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AppBar, Breadcrumb, Chip, ChipGroup, FilterBar, Pagination, SegmentedControl, Tabs } from '@kimgseok/design-navigation/web';
+import TabsDefaultExample from '@kimgseok/design-examples/tabs-default';
 
 const meta = { title: 'Navigation/Tabs', component: Tabs, parameters: { layout: 'padded' }, tags: ['autodocs'] } satisfies Meta<typeof Tabs>;
 export default meta;
@@ -12,7 +13,7 @@ function Demo({ dark = false, overflow = false, external = false }: { dark?: boo
   const items = overflow ? [...base, ...Array.from({ length: 6 }, (_, index) => ({ value: `more-${index}`, label: index === 5 ? '최근 결제 내역과 환불 진행 상태' : `추가 탭 ${index + 1}`, content: <p>추가 콘텐츠 {index + 1}</p> }))] : base;
   return <div data-theme={dark ? 'dark' : 'light'} style={{ background: 'var(--kg-color-bg-canvas)', color: 'var(--kg-color-fg-primary)', maxWidth: 480, padding: 24 }}>{external ? <button onClick={() => setValue('more-5')} type="button">마지막 탭 외부 선택</button> : null}<Tabs accessibilityLabel="프로젝트 정보" items={items} onValueChange={setValue} value={value} /></div>;
 }
-export const Default: Story = { render: () => <Demo /> };
+export const Default: Story = { render: () => <TabsDefaultExample /> };
 export const Overflow: Story = { render: () => <Demo overflow /> };
 export const Dark: Story = { render: () => <Demo dark /> };
 export const ExternalSelection: Story = { render: () => <Demo external overflow /> };

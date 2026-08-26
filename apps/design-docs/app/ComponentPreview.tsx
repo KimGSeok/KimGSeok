@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@kimgseok/design-button/web";
 import { Callout, Progress, Spinner } from "@kimgseok/design-feedback/web";
 import { Badge, Card, Heading, Text } from "@kimgseok/design-primitives/web";
+import { colors } from "@kimgseok/design-tokens/colors";
 import { DatePicker } from "@kimgseok/design-date-picker/web";
 
 export function ComponentPreview() {
@@ -16,11 +17,11 @@ export function ComponentPreview() {
         <div className="preview-heading">
           <div>
             <Badge label="Stable" tone="positive" />
-            <Heading level={2} role="title">같은 계약, 플랫폼에 맞는 구현</Heading>
+            <Heading level={2} textStyle="title-xl-bold">같은 계약, 플랫폼에 맞는 구현</Heading>
           </div>
           <Spinner accessibilityLabel="동기화 상태 확인 중" size="sm" />
         </div>
-        <Text as="p" tone="secondary">
+        <Text as="p" color={colors.fgSecondary} textStyle="text-m-regular">
           이 화면 자체가 배포 대상 패키지를 직접 사용합니다. 문서용 복제 컴포넌트는 만들지 않습니다.
         </Text>
         <Progress accessibilityLabel="승인된 정적 범위 구현률" value={1} />

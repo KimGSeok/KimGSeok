@@ -1,12 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Callout, Progress, Spinner, ToastViewport } from '@kimgseok/design-feedback/web';
+import ProgressDeterminateExample from '@kimgseok/design-examples/progress-determinate';
+import ProgressIndeterminateExample from '@kimgseok/design-examples/progress-indeterminate';
 
 const meta = { title: 'Feedback/Progress', component: Progress, parameters: { layout: 'padded' }, tags: ['autodocs'], args: { accessibilityLabel: '업로드 진행률', value: 0.64 } } satisfies Meta<typeof Progress>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Determinate: Story = {};
+export const DocumentationDeterminate: Story = { render: () => <ProgressDeterminateExample /> };
 export const Indeterminate: Story = { args: { value: undefined } };
+export const DocumentationIndeterminate: Story = { render: () => <ProgressIndeterminateExample /> };
 export const Clamped: Story = { args: { value: 1.4 } };
 export const NonFinite: Story = { args: { value: Number.NaN } };
 export const Spinners: Story = { render: () => <div style={{ alignItems: 'center', display: 'flex', gap: 16 }}><Spinner size="sm" /><Spinner accessibilityLabel="결제 처리 중" size="md" /><Spinner size="lg" /></div> };

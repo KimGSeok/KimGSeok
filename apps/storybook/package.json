@@ -9,6 +9,7 @@
   "dependencies": {
     "@kimgseok/design-button": "workspace:*",
     "@kimgseok/design-date-picker": "workspace:*",
+    "@kimgseok/design-examples": "workspace:*",
     "@kimgseok/design-icons": "workspace:*",
     "@kimgseok/design-forms": "workspace:*",
     "@kimgseok/design-feedback": "workspace:*",
@@ -16,6 +17,7 @@
     "@kimgseok/design-navigation": "workspace:*",
     "@kimgseok/design-primitives": "workspace:*",
     "@kimgseok/design-tokens": "workspace:*",
+    "pretendard": "1.3.9",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },

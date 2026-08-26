@@ -1,14 +1,40 @@
 import { Children, Fragment, isValidElement, type ReactNode } from 'react';
 import type { IconName } from '@kimgseok/design-icons/names';
+import type { TextColorToken } from '@kimgseok/design-tokens/colors';
+import type { TextStyle } from '@kimgseok/design-tokens/typography';
+
+export type { PaletteColorToken, SemanticTextColorToken, TextColorToken } from '@kimgseok/design-tokens/colors';
+export type { BodyTextStyle, TextSize, TextStyle, TextStyleKind, TextWeight, TitleTextStyle } from '@kimgseok/design-tokens/typography';
 
 export type TextRole = 'display' | 'title' | 'heading' | 'body' | 'label' | 'caption';
 export type TextTone = 'primary' | 'secondary' | 'tertiary' | 'disabled' | 'onBrand';
 export type SurfaceLevel = 'surface' | 'raised';
 export type BadgeTone = 'neutral' | 'positive' | 'caution' | 'negative' | 'info';
 
+export const textStyleByRole = {
+  display: 'title-xxl-bold',
+  title: 'title-xl-bold',
+  heading: 'title-l-bold',
+  body: 'text-m-regular',
+  label: 'text-s-semibold',
+  caption: 'text-xs-regular'
+} as const satisfies Record<TextRole, TextStyle>;
+
+export const textColorByTone = {
+  primary: 'fg-primary',
+  secondary: 'fg-secondary',
+  tertiary: 'fg-tertiary',
+  disabled: 'fg-disabled',
+  onBrand: 'fg-on-brand'
+} as const satisfies Record<TextTone, TextColorToken>;
+
 export interface SharedTextProps {
   children: ReactNode;
+  textStyle?: TextStyle;
+  color?: TextColorToken;
+  /** @deprecated Use textStyle. Compatibility support remains for the 0.x migration. */
   role?: TextRole;
+  /** @deprecated Use color. Compatibility support remains for the 0.x migration. */
   tone?: TextTone;
   numberOfLines?: number;
 }

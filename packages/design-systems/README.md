@@ -40,6 +40,35 @@ Design Docs는 모든 공개 UI를 `Components` 아래에 유지하고 종류별
 Docs IA 테스트는 모든 stable 컴포넌트가 정확히 한 그룹에 포함되고, 빈 그룹이나
 중복 URL이 생기지 않는지 검증합니다.
 
+## Typography와 text color 계약
+
+Typography는 `text | title` × `xxs | xs | s | m | l | xl | xxl` ×
+`regular | medium | semibold | bold`를 조합한 token 이름을 사용합니다. 예를 들어
+`text-l-medium`, `title-xl-bold`입니다. Pretendard weight 값은 각각
+`400 / 500 / 600 / 700`이며 Web과 React Native가 같은 token 이름을 공유합니다.
+
+```tsx
+import { colors } from "@kimgseok/design-tokens/colors";
+import { Text } from "@kimgseok/design-primitives/web";
+
+<Text textStyle="text-l-medium" color={colors.red500}>강조</Text>
+<Text textStyle="text-l-medium" color="red-500">강조</Text>
+```
+
+`colors.red500`은 raw HEX가 아니라 `red-500` token 식별자를 반환합니다. 따라서
+Web은 CSS variable로, Native는 native theme의 실제 색상으로 각각 해석하면서도
+동일한 `TextColorToken` union을 유지합니다. token 문자열은 항상 lowercase입니다.
+기존 `role`과 `tone`은 0.x 호환 alias이며 신규 코드는 `textStyle`과 `color`를
+사용합니다.
+
+Web 소비자는 폰트 파일을 디자인 시스템 패키지에 중복 포함하지 않고 앱 진입점에서
+Pretendard를 한 번 로드합니다.
+
+```tsx
+import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
+import "@kimgseok/design-tokens/css";
+```
+
 ## 시작하기
 
 저장소 루트에서 실행합니다.

@@ -18,9 +18,7 @@ export default function Home() {
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-copy">
           <p className="eyebrow">WEB + REACT NATIVE</p>
-          <h1 id="hero-title">
-            제품보다 먼저 합의하는<br />공통 UI 계약입니다.
-          </h1>
+          <h1 id="hero-title">제품보다 먼저 합의하는 공통 UI 계약입니다.</h1>
           <p className="hero-description">
             Web과 React Native가 의미와 상태를 공유하고, 플랫폼별 상호작용은
             각 환경의 기준에 맞게 구현합니다.

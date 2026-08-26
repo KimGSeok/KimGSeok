@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ActionArea, Button } from '@kimgseok/design-button/web';
+import ButtonDefaultExample from '@kimgseok/design-examples/button-default';
+import ButtonVariantsExample from '@kimgseok/design-examples/button-variants';
 
 const meta = {
   title: 'Actions/Button',
@@ -17,6 +19,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {};
+export const DocumentationDefault: Story = { render: () => <ButtonDefaultExample /> };
 export const Secondary: Story = { args: { variant: 'secondary' } };
 export const Tertiary: Story = { args: { variant: 'tertiary' } };
 export const Danger: Story = { args: { variant: 'danger', children: '삭제하기' } };
@@ -50,9 +53,7 @@ export const RetryableError: Story = { render: () => <RetryDemo /> };
 export const LongKoreanLabel: Story = { args: { children: '변경사항을 확인하고 안전하게 저장하기' } };
 
 export const AllVariants: Story = {
-  render: () => <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-    <Button>Primary</Button><Button variant="secondary">Secondary</Button><Button variant="tertiary">Tertiary</Button><Button variant="danger">Danger</Button>
-  </div>
+  render: () => <ButtonVariantsExample />
 };
 
 function ActionAreaDemo({ loading = false, dark = false }: { loading?: boolean; dark?: boolean }) { const [message, setMessage] = useState(''); return <div data-theme={dark ? 'dark' : 'light'} style={{ background: 'var(--kg-color-bg-canvas)', minHeight: 240, paddingTop: 80 }}><ActionArea accessibilityLabel="주문 작업" primary={{ label: '주문하기', loading, onAction: () => setMessage('주문을 시작했습니다.'), onActionError: () => setMessage('주문하지 못했어요.') }} secondary={{ label: '장바구니', onAction: () => setMessage('장바구니에 담았습니다.'), onActionError: () => setMessage('장바구니에 담지 못했어요.') }} /><output aria-live="polite">{message}</output></div>; }

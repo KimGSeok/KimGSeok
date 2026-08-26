@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import {
   catalog,
   componentCategoryDefinitions,
@@ -98,5 +98,21 @@ for (const routeFile of [
 ]) {
   assert.ok(existsSync(new URL(routeFile, import.meta.url)), `${routeFile} must exist`);
 }
+
+const layoutSource = readFileSync(new URL("../app/layout.tsx", import.meta.url), "utf8");
+const homeSource = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
+const catalogSource = readFileSync(new URL("../app/components/page.tsx", import.meta.url), "utf8");
+const globalStyles = readFileSync(new URL("../app/globals.css", import.meta.url), "utf8");
+
+assert.match(layoutSource, /site-header-sidebar/, "header must preserve the sidebar alignment track");
+assert.match(layoutSource, /site-header-main/, "header navigation must share the documentation content track");
+assert.doesNotMatch(homeSource, /<br\s*\/>/, "home headings must wrap naturally");
+assert.doesNotMatch(catalogSource, /<br\s*\/>/, "catalog headings must wrap naturally");
+assert.match(globalStyles, /--docs-content-max:\s*960px/, "documentation pages must share a focused maximum width");
+assert.match(globalStyles, /--docs-frame-max:\s*1280px/, "sidebar and content must share one centered page frame");
+assert.match(globalStyles, /margin-inline:\s*auto/, "documentation content must center within the main rail");
+assert.match(globalStyles, /var\(--kg-color-fg-link\)/, "text links must use a foreground semantic token");
+assert.match(globalStyles, /var\(--kg-color-accent-default\)/, "decorative emphasis must use an accent semantic token");
+assert.doesNotMatch(globalStyles, /grid-template-columns:\s*1fr auto 1fr/, "header must not use viewport-centered navigation");
 
 console.log(`Design Docs IA checks passed (${componentNavigation.length} components in ${componentNavigationGroups.length} groups)`);
