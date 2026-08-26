@@ -15,8 +15,10 @@
   "files": ["dist"],
   "type": "module",
   "exports": {
+    "./colors": { "types": "./dist/colors/index.d.ts", "default": "./dist/colors/index.js" },
     "./css": "./dist/css/variables.css",
     "./native": { "types": "./dist/native/index.d.ts", "default": "./dist/native/index.js" },
+    "./typography": { "types": "./dist/typography/index.d.ts", "default": "./dist/typography/index.js" },
     "./tokens": "./dist/tokens.json"
   },
   "scripts": {

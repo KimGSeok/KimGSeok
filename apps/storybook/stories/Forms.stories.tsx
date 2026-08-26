@@ -2,13 +2,17 @@ import { useRef, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Checkbox, DateTimeField, RadioGroup, SearchField, Select, Slider, Switch, TextArea, TextField } from '@kimgseok/design-forms/web';
 import { Calendar, DatePicker, DateRangePicker } from '@kimgseok/design-date-picker/web';
+import TextFieldDefaultExample from '@kimgseok/design-examples/text-field-default';
+import TextFieldStatesExample from '@kimgseok/design-examples/text-field-states';
 
 const meta = { title: 'Forms/TextField', component: TextField, parameters: { layout: 'padded' }, tags: ['autodocs'], args: { label: '이름', placeholder: '이름을 입력하세요' } } satisfies Meta<typeof TextField>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+export const DocumentationDefault: Story = { render: () => <TextFieldDefaultExample /> };
 export const HelpText: Story = { args: { helpText: '실명을 입력해 주세요.' } };
 export const Error: Story = { args: { defaultValue: '김', errorMessage: '이름을 두 글자 이상 입력해 주세요.' } };
+export const DocumentationStates: Story = { render: () => <TextFieldStatesExample /> };
 export const Disabled: Story = { args: { disabled: true, value: '김경석' } };
 export const Required: Story = { args: { required: true } };
 export const Multiline: Story = { render: () => <TextArea helpText="최대 500자" label="소개" placeholder="자기소개를 입력하세요" /> };

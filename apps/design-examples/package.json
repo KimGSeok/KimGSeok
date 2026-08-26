@@ -1,0 +1,31 @@
+{
+  "name": "@kimgseok/design-examples",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./button-default": "./src/button-default.tsx",
+    "./button-variants": "./src/button-variants.tsx",
+    "./dialog-default": "./src/dialog-default.tsx",
+    "./progress-determinate": "./src/progress-determinate.tsx",
+    "./progress-indeterminate": "./src/progress-indeterminate.tsx",
+    "./tabs-default": "./src/tabs-default.tsx",
+    "./text-styles": "./src/text-styles.tsx",
+    "./text-field-default": "./src/text-field-default.tsx",
+    "./text-field-states": "./src/text-field-states.tsx"
+  },
+  "dependencies": {
+    "@kimgseok/design-button": "workspace:*",
+    "@kimgseok/design-feedback": "workspace:*",
+    "@kimgseok/design-forms": "workspace:*",
+    "@kimgseok/design-navigation": "workspace:*",
+    "@kimgseok/design-overlays": "workspace:*",
+    "@kimgseok/design-primitives": "workspace:*",
+    "@kimgseok/design-tokens": "workspace:*",
+    "react": "19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.1.10",
+    "typescript": "^5.9.3"
+  },
+  "scripts": { "typecheck": "tsc --noEmit" }
+}

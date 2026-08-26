@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button } from "@kimgseok/design-button/web";
+import DialogDefaultExample from "@kimgseok/design-examples/dialog-default";
 import {
   BottomSheet,
   ConfirmationDialog,
@@ -57,7 +58,7 @@ function DialogDemo({ destructive = false }: { destructive?: boolean }) {
     </>
   );
 }
-export const Default: Story = { render: () => <DialogDemo /> };
+export const Default: Story = { render: () => <DialogDefaultExample /> };
 export const Destructive: Story = { render: () => <DialogDemo destructive /> };
 export const Dark: Story = {
   render: () => (

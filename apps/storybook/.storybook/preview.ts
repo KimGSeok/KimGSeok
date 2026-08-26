@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react-vite';
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import '@kimgseok/design-tokens/css';
 
 const preview: Preview = {

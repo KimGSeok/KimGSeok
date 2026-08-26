@@ -2,19 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Avatar, Badge, Card, Divider, EmptyState, Heading, IconButton, ListItem, SkeletonRegion, Surface, Table, Text } from '@kimgseok/design-primitives/web';
 import { Button } from '@kimgseok/design-button/web';
+import TextStylesExample from '@kimgseok/design-examples/text-styles';
 
 const meta = { title: 'Foundations/Primitives', component: Surface, parameters: { layout: 'padded' }, tags: ['autodocs'] } satisfies Meta<typeof Surface>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Typography: Story = {
-  render: () => <Surface><div style={{ display: 'grid', gap: 12 }}>
-    <Heading level={1} role="display">읽기 쉬운 디스플레이</Heading>
-    <Heading level={2} role="title">명확한 제목</Heading>
-    <Heading level={3}>정보 구조를 설명하는 헤딩</Heading>
-    <Text as="p">본문은 중요한 맥락을 자연스럽게 전달합니다.</Text>
-    <Text as="p" role="caption" tone="secondary">보조 정보는 본문보다 낮은 위계를 갖습니다.</Text>
-  </div></Surface>
+  render: () => <TextStylesExample />
 };
 
 export const Surfaces: Story = {

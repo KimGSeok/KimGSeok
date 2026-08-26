@@ -22,16 +22,26 @@ pnpm build`}</code></pre>
 
       <section aria-labelledby="web-title">
         <h2 id="web-title">Web</h2>
-        <p>앱 진입점에서 semantic token CSS를 한 번 불러온 뒤 Web export를 사용합니다.</p>
-        <pre><code>{`import "@kimgseok/design-tokens/css";
-import { Button } from "@kimgseok/design-button/web";`}</code></pre>
+        <p>Pretendard와 semantic token CSS를 앱 진입점에서 한 번 불러온 뒤 Web export를 사용합니다.</p>
+        <pre><code>{`pnpm add pretendard
+
+import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
+import "@kimgseok/design-tokens/css";
+import { colors } from "@kimgseok/design-tokens/colors";
+import { Text } from "@kimgseok/design-primitives/web";
+
+<Text textStyle="text-l-medium" color={colors.red500}>강조</Text>`}</code></pre>
       </section>
 
       <section aria-labelledby="native-title">
         <h2 id="native-title">React Native</h2>
         <p>Native export는 같은 의미 계약을 유지하면서 플랫폼 상호작용을 직접 구현합니다.</p>
-        <pre><code>{`import { NativeButton } from "@kimgseok/design-button/native";
-import { nativeTheme } from "@kimgseok/design-tokens/native";`}</code></pre>
+        <pre><code>{`import { NativeText } from "@kimgseok/design-primitives/native";
+import { colors } from "@kimgseok/design-tokens/colors";
+
+<NativeText textStyle="text-l-medium" color={colors.red500}>
+  강조
+</NativeText>`}</code></pre>
       </section>
     </DocumentationPage>
   );

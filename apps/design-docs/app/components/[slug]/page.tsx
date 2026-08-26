@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { CatalogEntry, CatalogPlatform } from "@kimgseok/design-catalog";
+import { getComponentDoc } from "../../component-docs";
 import { documentedComponents } from "../../docs-navigation";
 import { sourceUrl, storyUrl } from "../../documentation-links";
+import { ComponentDocumentation } from "./ComponentDocumentation";
 
 export function generateStaticParams() {
   return documentedComponents.map(({ slug }) => ({ slug }));
@@ -58,6 +60,11 @@ export default async function ComponentPage({
 
   const evidenceUrl = entry.storyId ? storyUrl(entry.storyId) : null;
   const related = relatedEntries(entry);
+  const componentDoc = getComponentDoc(entry.slug);
+
+  if (componentDoc) {
+    return <ComponentDocumentation doc={componentDoc} entry={entry} related={related} />;
+  }
 
   return (
     <main id="main-content" className="component-detail">

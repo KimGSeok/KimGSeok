@@ -1,8 +1,8 @@
 import { AccessibilityInfo, Animated, Image, Platform, Pressable, Text as RNText, useColorScheme, View } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
-import { getNativeTheme } from '@kimgseok/design-tokens/native';
-import type { SharedIconButtonProps, SharedSurfaceProps, SharedTextProps } from './contracts';
-import { controlSize } from './contracts';
+import { getNativeTheme, type NativeTheme } from '@kimgseok/design-tokens/native';
+import type { SharedIconButtonProps, SharedSurfaceProps, SharedTextProps, TextColorToken, TextRole, TitleTextStyle } from './contracts';
+import { controlSize, textColorByTone, textStyleByRole } from './contracts';
 import { NativeIcon } from '@kimgseok/design-icons/native';
 import { assertBadgeContract, assertListItemContract, assertNativeCardContract, getListItemAccessibleName, type SharedBadgeProps, type SharedCardProps, type SharedListItemProps } from './contracts';
 import { assertAvatarContract, avatarSize, getAvatarInitials, type SharedAvatarProps } from './contracts';
@@ -17,14 +17,30 @@ function useTheme(mode?: 'light' | 'dark') {
 }
 function useReduceMotion() { const [reduced, setReduced] = useState<boolean | null>(null); useEffect(() => { void AccessibilityInfo.isReduceMotionEnabled().then(setReduced); const subscription = AccessibilityInfo.addEventListener('reduceMotionChanged', setReduced); return () => subscription.remove(); }, []); return reduced; }
 
-export function NativeText({ children, role = 'body', tone = 'primary', numberOfLines, mode }: SharedTextProps & { mode?: 'light' | 'dark' }) {
-  const theme = useTheme(mode);
-  return <RNText numberOfLines={numberOfLines} style={[theme.typography.role[role], { color: theme.color.semantic.fg[tone] }]}>{children}</RNText>;
+function nativeTextColor(theme: NativeTheme, color: TextColorToken) {
+  if (color.startsWith('fg-')) {
+    const semanticName = color.slice(3).replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase());
+    return theme.color.semantic.fg[semanticName] as string;
+  }
+  const [family, step] = color.split('-');
+  const palette = theme.color.palette[family];
+  return typeof palette === 'string' ? palette : palette[step];
 }
 
-export function NativeHeading({ children, role = 'heading', tone = 'primary', numberOfLines, mode, accessibilityRole = 'header' }: SharedTextProps & { mode?: 'light' | 'dark'; accessibilityRole?: 'header' | 'text' }) {
+export type NativeTextProps = SharedTextProps & { mode?: 'light' | 'dark' };
+export function NativeText({ children, textStyle, color, role, tone, numberOfLines, mode }: NativeTextProps) {
   const theme = useTheme(mode);
-  return <RNText accessibilityRole={accessibilityRole} numberOfLines={numberOfLines} style={[theme.typography.role[role], { color: theme.color.semantic.fg[tone] }]}>{children}</RNText>;
+  const resolvedTextStyle = textStyle ?? textStyleByRole[role ?? 'body'];
+  const resolvedColor = color ?? textColorByTone[tone ?? 'primary'];
+  return <RNText numberOfLines={numberOfLines} style={[theme.typography.textStyle[resolvedTextStyle], { color: nativeTextColor(theme, resolvedColor) }]}>{children}</RNText>;
+}
+
+export type NativeHeadingProps = Omit<SharedTextProps, 'role' | 'textStyle'> & { role?: Extract<TextRole, 'display' | 'title' | 'heading'>; textStyle?: TitleTextStyle; mode?: 'light' | 'dark'; accessibilityRole?: 'header' | 'text' };
+export function NativeHeading({ children, textStyle, color, role, tone, numberOfLines, mode, accessibilityRole = 'header' }: NativeHeadingProps) {
+  const theme = useTheme(mode);
+  const resolvedTextStyle = textStyle ?? textStyleByRole[role ?? 'heading'];
+  const resolvedColor = color ?? textColorByTone[tone ?? 'primary'];
+  return <RNText accessibilityRole={accessibilityRole} numberOfLines={numberOfLines} style={[theme.typography.textStyle[resolvedTextStyle], { color: nativeTextColor(theme, resolvedColor) }]}>{children}</RNText>;
 }
 
 export function NativeSurface({ children, level = 'surface', elevation, mode }: SharedSurfaceProps & { mode?: 'light' | 'dark' }) {

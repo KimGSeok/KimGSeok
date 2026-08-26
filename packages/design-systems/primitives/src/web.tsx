@@ -1,8 +1,8 @@
 "use client";
 
 import { useId, useRef, useState, type HTMLAttributes, type KeyboardEvent, type MouseEvent } from 'react';
-import type { SharedIconButtonProps, SharedSurfaceProps, SharedTextProps, TextRole } from './contracts';
-import { controlSize } from './contracts';
+import type { SharedIconButtonProps, SharedSurfaceProps, SharedTextProps, TextColorToken, TextRole, TextStyle, TitleTextStyle } from './contracts';
+import { controlSize, textColorByTone, textStyleByRole } from './contracts';
 import { Icon } from '@kimgseok/design-icons/web';
 import { assertBadgeContract, assertCardContract, assertListItemContract, getListItemAccessibleName, type SharedBadgeProps, type SharedCardProps, type SharedListItemProps } from './contracts';
 import { assertAvatarContract, avatarSize, getAvatarInitials, type SharedAvatarProps } from './contracts';
@@ -12,19 +12,38 @@ import { assertSkeletonRegionContract, type SharedSkeletonRegionProps } from './
 import { assertTableContract, type SharedTableProps } from './contracts';
 import { Button } from '@kimgseok/design-button/web';
 
-type WebTextProps = SharedTextProps & Omit<HTMLAttributes<HTMLElement>, 'children' | 'className' | 'style'> & { as?: 'span' | 'p' | 'strong' };
-
-export function Text({ as: Element = 'span', children, role = 'body', tone = 'primary', numberOfLines, ...props }: WebTextProps) {
-  const clamp = numberOfLines ? { display: '-webkit-box', overflow: 'hidden', WebkitBoxOrient: 'vertical' as const, WebkitLineClamp: numberOfLines } : undefined;
-  return <Element {...props} style={{ color: `var(--kg-color-fg-${tone.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)})`, fontFamily: 'var(--kg-typography-family-web)', fontSize: `var(--kg-typography-role-${role}-font-size)`, fontWeight: `var(--kg-typography-role-${role}-font-weight)`, letterSpacing: `var(--kg-typography-role-${role}-letter-spacing)`, lineHeight: `var(--kg-typography-role-${role}-line-height)`, margin: 0, ...clamp }}>{children}</Element>;
+function webTextStyle(textStyle: TextStyle) {
+  const [kind, size, weight] = textStyle.split('-');
+  return {
+    fontFamily: 'var(--kg-typography-family-web)',
+    fontSize: `var(--kg-typography-size-${size}-font-size)`,
+    fontWeight: `var(--kg-typography-weight-${weight})`,
+    letterSpacing: `var(--kg-typography-tracking-${kind}-${size})`,
+    lineHeight: `var(--kg-typography-size-${size}-line-height)`
+  };
 }
 
-type HeadingProps = Omit<WebTextProps, 'as' | 'role'> & { level?: 1 | 2 | 3; role?: Extract<TextRole, 'display' | 'title' | 'heading'> };
-export function Heading({ level = 2, role = 'heading', ...props }: HeadingProps) {
-  const Element = `h${level}` as 'h1' | 'h2' | 'h3';
-  const { children, tone = 'primary', numberOfLines, ...headingProps } = props;
+function webTextColor(color: TextColorToken) {
+  return color.startsWith('fg-') ? `var(--kg-color-${color})` : `var(--kg-color-palette-${color})`;
+}
+
+export type WebTextProps = SharedTextProps & Omit<HTMLAttributes<HTMLElement>, 'children' | 'className' | 'style'> & { as?: 'span' | 'p' | 'strong' };
+
+export function Text({ as: Element = 'span', children, textStyle, color, role, tone, numberOfLines, ...props }: WebTextProps) {
+  const resolvedTextStyle = textStyle ?? textStyleByRole[role ?? 'body'];
+  const resolvedColor = color ?? textColorByTone[tone ?? 'primary'];
   const clamp = numberOfLines ? { display: '-webkit-box', overflow: 'hidden', WebkitBoxOrient: 'vertical' as const, WebkitLineClamp: numberOfLines } : undefined;
-  return <Element {...headingProps} style={{ color: `var(--kg-color-fg-${tone.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)})`, fontFamily: 'var(--kg-typography-family-web)', fontSize: `var(--kg-typography-role-${role}-font-size)`, fontWeight: `var(--kg-typography-role-${role}-font-weight)`, letterSpacing: `var(--kg-typography-role-${role}-letter-spacing)`, lineHeight: `var(--kg-typography-role-${role}-line-height)`, margin: 0, ...clamp }}>{children}</Element>;
+  return <Element {...props} style={{ ...webTextStyle(resolvedTextStyle), color: webTextColor(resolvedColor), margin: 0, ...clamp }}>{children}</Element>;
+}
+
+export type HeadingProps = Omit<WebTextProps, 'as' | 'role' | 'textStyle'> & { level?: 1 | 2 | 3; role?: Extract<TextRole, 'display' | 'title' | 'heading'>; textStyle?: TitleTextStyle };
+export function Heading({ level = 2, role, textStyle, ...props }: HeadingProps) {
+  const Element = `h${level}` as 'h1' | 'h2' | 'h3';
+  const { children, color, tone, numberOfLines, ...headingProps } = props;
+  const resolvedTextStyle = textStyle ?? textStyleByRole[role ?? 'heading'];
+  const resolvedColor = color ?? textColorByTone[tone ?? 'primary'];
+  const clamp = numberOfLines ? { display: '-webkit-box', overflow: 'hidden', WebkitBoxOrient: 'vertical' as const, WebkitLineClamp: numberOfLines } : undefined;
+  return <Element {...headingProps} style={{ ...webTextStyle(resolvedTextStyle), color: webTextColor(resolvedColor), margin: 0, ...clamp }}>{children}</Element>;
 }
 
 type WebSurfaceProps = SharedSurfaceProps & Omit<HTMLAttributes<HTMLElement>, 'children' | 'className' | 'style'> & { as?: 'div' | 'section' | 'article' };
