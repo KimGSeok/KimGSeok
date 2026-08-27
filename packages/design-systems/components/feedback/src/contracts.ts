@@ -1,5 +1,5 @@
 export type FeedbackSize = 'sm' | 'md' | 'lg';
-export interface SpinnerContract { accessibilityLabel?: string; size?: FeedbackSize; }
+export interface SpinnerContract { accessibilityLabel?: string; size?: FeedbackSize; decorative?: boolean; }
 export interface ProgressContract { accessibilityLabel: string; value?: number; size?: 'sm' | 'md'; }
 export type FeedbackTone = 'neutral' | 'info' | 'positive' | 'caution' | 'negative';
 export interface ToastAction { label: string; onAction: () => void | Promise<void>; onError: (error: unknown) => void; }

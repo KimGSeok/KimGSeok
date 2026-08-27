@@ -64,7 +64,7 @@ const required = [
   ['font-weight is unitless', css.includes('--kg-typography-role-label-font-weight: 600;') && !css.includes('font-weight: 600px')],
   ['typed color object output', colorsModule.colors.red500 === 'red-500' && colorsModule.colors.fgPrimary === 'fg-primary' && colorsModule.colors.fgLink === 'fg-link' && colorsModule.paletteEntries.some(({ token, value }) => token === 'red-500' && value === '#f04452')],
   ['typed text-style output', typographyModule.textStyles.includes('text-l-medium') && typographyModule.textStyles.includes('title-xxl-bold') && typographyModule.textStyles.length === 56],
-  ['motion uses milliseconds', css.includes('--kg-foundation-motion-fast: 120ms;')],
+  ['motion uses semantic recipes', css.includes('--kg-foundation-motion-fast: 120ms;') && css.includes('--kg-foundation-motion-duration-skeleton-pulse: 1600ms;') && css.includes('--kg-foundation-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);') && css.includes('--kg-foundation-motion-distance-overlay: 16px;')],
   ['Web elevation output', css.includes('--kg-foundation-elevation-2: 0 8px 20px rgba(0, 23, 51, 0.16);')],
   ['native platform adapter output', native.includes('export function getNativeTheme(mode, platform)') && native.includes('"android": "sans-serif"') && native.includes('"fontWeight": "600"') && native.includes('"fontFamily": "System"')],
   ['native composed text style', JSON.stringify(iosTheme.typography.textStyle['text-l-medium']) === JSON.stringify({ fontSize: 20, lineHeight: 28, fontFamily: 'System', fontWeight: '500', letterSpacing: 0 })],

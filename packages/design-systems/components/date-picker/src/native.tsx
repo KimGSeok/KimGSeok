@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { getNativeTheme } from "@kimgseok/design-tokens/native";
+import { useReducedMotion } from "@kimgseok/design-motion/native";
 import {
   assertDatePickerContract,
   assertDateRangePickerContract,
@@ -147,6 +148,7 @@ function PickerModal({
   children: ReactNode;
 }) {
   const insets = useSafeAreaInsets();
+  const reduceMotion = useReducedMotion();
   const style: StyleProp<ViewStyle> = {
     flex: 1,
     paddingTop: insets.top,
@@ -156,7 +158,7 @@ function PickerModal({
   };
   return (
     <Modal
-      animationType="slide"
+      animationType={reduceMotion ? "none" : "slide"}
       onDismiss={onClose}
       onRequestClose={onClose}
       presentationStyle="pageSheet"

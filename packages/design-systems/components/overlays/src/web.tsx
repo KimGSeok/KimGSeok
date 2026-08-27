@@ -15,6 +15,11 @@ import {
 import { createPortal } from "react-dom";
 import { Button } from "@kimgseok/design-button/web";
 import {
+  resolveMotionRecipe,
+  useMotionPresence,
+  useReducedMotion,
+} from "@kimgseok/design-motion/web";
+import {
   assertConfirmationContract,
   assertMenuContract,
   type BottomSheetContract,
@@ -47,10 +52,16 @@ export function Dialog({
 }: WebDialogProps) {
   const titleId = useId();
   const descriptionId = useId();
+  const reduceMotion = useReducedMotion();
+  const presence = useMotionPresence(open, reduceMotion);
+  const transition = resolveMotionRecipe(
+    presence.phase === "exiting" ? "exit" : "overlay",
+    reduceMotion,
+  );
   const panelRef = useRef<HTMLDivElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
   useLayoutEffect(() => {
-    if (!open) return;
+    if (!presence.rendered) return;
     previousFocus.current =
       document.activeElement instanceof HTMLElement
         ? document.activeElement
@@ -71,8 +82,9 @@ export function Dialog({
       const target = returnFocusRef?.current ?? previousFocus.current;
       if (wasTop) requestAnimationFrame(() => target?.focus());
     };
-  }, [initialFocusSelector, open, returnFocusRef]);
-  if (!open) return null;
+  }, [initialFocusSelector, presence.rendered, returnFocusRef]);
+  if (!presence.rendered) return null;
+  const visible = presence.phase === "entered";
   const trapFocus = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Escape") {
       event.preventDefault();
@@ -111,8 +123,10 @@ export function Dialog({
         display: "flex",
         inset: 0,
         justifyContent: "center",
+        opacity: visible ? 1 : 0,
         padding: 16,
         position: "fixed",
+        transition: `opacity ${transition.duration}ms ${transition.easing}`,
         zIndex: 1100,
       }}
     >
@@ -137,6 +151,8 @@ export function Dialog({
           maxWidth: 480,
           overflow: "hidden",
           padding: 24,
+          transform: visible ? "translateY(0) scale(1)" : "translateY(4px) scale(.98)",
+          transition: `transform ${transition.duration}ms ${transition.easing}`,
           width: "100%",
         }}
         tabIndex={-1}
@@ -185,10 +201,16 @@ export function BottomSheet({
 }: WebBottomSheetProps) {
   const titleId = useId();
   const descriptionId = useId();
+  const reduceMotion = useReducedMotion();
+  const presence = useMotionPresence(open, reduceMotion);
+  const transition = resolveMotionRecipe(
+    presence.phase === "exiting" ? "exit" : "overlay",
+    reduceMotion,
+  );
   const panelRef = useRef<HTMLDivElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
   useLayoutEffect(() => {
-    if (!open) return;
+    if (!presence.rendered) return;
     previousFocus.current =
       document.activeElement instanceof HTMLElement
         ? document.activeElement
@@ -204,8 +226,9 @@ export function BottomSheet({
       const target = returnFocusRef?.current ?? previousFocus.current;
       if (wasTop) requestAnimationFrame(() => target?.focus());
     };
-  }, [open, returnFocusRef]);
-  if (!open) return null;
+  }, [presence.rendered, returnFocusRef]);
+  if (!presence.rendered) return null;
+  const visible = presence.phase === "entered";
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Escape") {
       event.preventDefault();
@@ -244,7 +267,9 @@ export function BottomSheet({
         display: "flex",
         inset: 0,
         justifyContent: "center",
+        opacity: visible ? 1 : 0,
         position: "fixed",
+        transition: `opacity ${transition.duration}ms ${transition.easing}`,
         zIndex: 1100,
       }}
     >
@@ -269,6 +294,8 @@ export function BottomSheet({
           maxWidth: 640,
           overflow: "hidden",
           padding: "12px 24px max(24px, env(safe-area-inset-bottom))",
+          transform: visible ? "translateY(0)" : "translateY(16px)",
+          transition: `transform ${transition.duration}ms ${transition.easing}`,
           width: "100%",
         }}
         tabIndex={-1}

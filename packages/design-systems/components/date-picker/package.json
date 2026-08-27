@@ -16,8 +16,8 @@
   "sideEffects": false,
   "type": "module",
   "exports": { "./contracts": { "types": "./dist/contracts.d.ts", "default": "./dist/contracts.js" }, "./web": { "types": "./dist/web.d.ts", "default": "./dist/web.js" }, "./native": { "types": "./dist/native.d.ts", "default": "./dist/native.js" } },
-  "scripts": { "build": "tsup src/contracts.ts src/web.tsx src/native.tsx --format esm --dts --out-dir dist --clean --external react --external react-native --external react-native-safe-area-context --external @kimgseok/design-overlays --external @kimgseok/design-tokens", "typecheck": "tsc --noEmit", "test": "node --experimental-strip-types scripts/test.mjs" },
-  "dependencies": { "@kimgseok/design-overlays": "workspace:^", "@kimgseok/design-tokens": "workspace:^" },
+  "scripts": { "build": "tsup src/contracts.ts src/web.tsx src/native.tsx --format esm --dts --out-dir dist --clean --external react --external react-native --external react-native-safe-area-context --external @kimgseok/design-overlays --external @kimgseok/design-tokens --external @kimgseok/design-motion", "typecheck": "tsc --noEmit", "test": "node --experimental-strip-types scripts/test.mjs" },
+  "dependencies": { "@kimgseok/design-overlays": "workspace:^", "@kimgseok/design-tokens": "workspace:^", "@kimgseok/design-motion": "workspace:^" },
   "peerDependencies": { "react": "19.1.0", "react-native": "0.81.0", "react-native-safe-area-context": "5.6.1" },
   "devDependencies": { "@types/react": "~19.1.10", "typescript": "^5.9.3" }
 }

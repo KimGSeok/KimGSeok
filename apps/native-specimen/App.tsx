@@ -68,6 +68,8 @@ export default function App() {
       <NativeListItem action={{ onAction: () => undefined, onActionError: () => undefined }} loading description="상태를 갱신하고 있습니다" title="로딩 주문" trailing="chevron" />
       <View style={{ maxWidth: 320 }}><NativeEmptyState action={{ label: '다시 시도', onAction: () => new Promise<void>((resolve) => setTimeout(resolve, 300)), onActionError: () => undefined }} description="네트워크 연결을 확인한 뒤 다시 시도해 주세요. 큰 글꼴에서도 줄바꿈과 버튼 순서를 확인합니다." icon="menu" title="내일 새벽 도착 예정인 주문 내역을 불러오지 못했어요" /></View>
       <View style={{ maxWidth: 320 }}><NativeSkeletonRegion accessibilityLabel="주문 정보를 불러오는 중" items={[{ size: 'lg' }, { size: 'full' }, { shape: 'block', size: 'full' }, { shape: 'circle', size: 'md' }]} /></View>
+      <View style={{ maxWidth: 320 }}><NativeSkeletonRegion accessibilityLabel="주문 목록을 불러오는 중" count={3} recipe="list-item" /></View>
+      <View style={{ maxWidth: 320 }}><NativeSkeletonRegion accessibilityLabel="주문 요약을 불러오는 중" recipe="card" /></View>
       <View style={styles.feedback}><NativeSpinner accessibilityLabel="동기화 중" /><View style={styles.progresses}><NativeProgress accessibilityLabel="업로드 0퍼센트" value={0} /><NativeProgress accessibilityLabel="업로드 64퍼센트" value={0.64} /><NativeProgress accessibilityLabel="업로드 100퍼센트" value={1} /><NativeProgress accessibilityLabel="처리 단계 확인 중" /></View></View>
       <NativeCallout description="네트워크 연결을 확인하고 다시 시도해 주세요." title="불러오지 못했어요" tone="negative" />
       <NativeButton onAction={() => setDialogOpen(true)} variant="secondary">다이얼로그 열기</NativeButton>

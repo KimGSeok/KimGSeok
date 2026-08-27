@@ -35,6 +35,7 @@ function flatten(value, prefix = []) {
 function serializeCss(name, value) {
   if (typeof value !== 'number') return value;
   if (name.includes('typography-weight') || name.endsWith('fontWeight')) return String(value);
+  if (name.includes('foundation-motion-distance')) return `${value}px`;
   if (name.includes('foundation-motion')) return `${value}ms`;
   return `${value}px`;
 }

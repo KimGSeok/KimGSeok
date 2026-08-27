@@ -8,6 +8,7 @@
     "./dialog-default": "./src/dialog-default.tsx",
     "./progress-determinate": "./src/progress-determinate.tsx",
     "./progress-indeterminate": "./src/progress-indeterminate.tsx",
+    "./skeleton-recipes": "./src/skeleton-recipes.tsx",
     "./tabs-default": "./src/tabs-default.tsx",
     "./text-styles": "./src/text-styles.tsx",
     "./text-field-default": "./src/text-field-default.tsx",

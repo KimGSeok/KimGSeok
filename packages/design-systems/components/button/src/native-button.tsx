@@ -3,6 +3,14 @@ import { ActivityIndicator, Platform, Pressable, StyleSheet, Text, useColorSchem
 import { getNativeTheme, type ActionVariant, type NativePlatform } from '@kimgseok/design-tokens/native';
 import { assertActionAreaContract, buttonSize, type ActionAreaContract, type ButtonSize, type SharedButtonProps } from './contracts';
 import { NativeIcon } from '@kimgseok/design-icons/native';
+import { useReducedMotion } from '@kimgseok/design-motion/native';
+
+function NativeButtonLoadingIndicator({ color }: { color: string }) {
+  const reduced = useReducedMotion();
+  return reduced
+    ? <View accessible={false} style={{ borderColor: color, borderRadius: 8, borderRightColor: 'transparent', borderWidth: 2, height: 16, width: 16 }} />
+    : <ActivityIndicator accessible={false} color={color} size={16} />;
+}
 
 export interface NativeButtonProps extends SharedButtonProps {
   mode?: 'light' | 'dark';
@@ -25,7 +33,7 @@ export function NativeButton({ children, variant = 'primary', size = 'md', loadi
     try { await onAction?.(); } catch (error) { onActionError?.(error); } finally { actionLock.current = false; setPending(false); }
   }
   return <Pressable accessibilityLabel={accessibilityLabel} accessibilityRole="button" accessibilityState={{ busy: loading || pending, disabled: inactive }} disabled={inactive} onPress={activate} style={({ pressed }) => [styles.root, { backgroundColor: inactive ? action.bgDisabled : pressed ? action.bgPressed : action.bg, borderRadius: theme.foundation.radius.lg, maxWidth: '100%', minHeight: metrics.minHeight, minWidth: metrics.minHeight, paddingHorizontal: metrics.horizontalPadding }]}>
-    {leadingIcon ? <NativeIcon color={inactive ? action.fgDisabled : action.fg} name={leadingIcon} size={20} /> : null}{loading || pending ? <ActivityIndicator accessibilityLabel="처리 중" color={action.fgDisabled} /> : null}<Text ellipsizeMode="tail" numberOfLines={1} style={[theme.typography.role.label, { color: inactive ? action.fgDisabled : action.fg, flexShrink: 1 }]}>{children}</Text>{!loading && !pending && trailingIcon ? <NativeIcon color={inactive ? action.fgDisabled : action.fg} name={trailingIcon} size={20} /> : null}
+    {leadingIcon ? <NativeIcon color={inactive ? action.fgDisabled : action.fg} name={leadingIcon} size={20} /> : null}{loading || pending ? <NativeButtonLoadingIndicator color={action.fgDisabled} /> : null}<Text ellipsizeMode="tail" numberOfLines={1} style={[theme.typography.role.label, { color: inactive ? action.fgDisabled : action.fg, flexShrink: 1 }]}>{children}</Text>{!loading && !pending && trailingIcon ? <NativeIcon color={inactive ? action.fgDisabled : action.fg} name={trailingIcon} size={20} /> : null}
   </Pressable>;
 }
 

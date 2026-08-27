@@ -1,0 +1,37 @@
+{
+  "name": "@kimgseok/design-motion",
+  "version": "0.1.0",
+  "description": "Semantic cross-platform motion recipes and loading visibility hooks for the KimGSeok design system.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KimGSeok/design-system.git",
+    "directory": "packages/design-systems/foundation/motion"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "files": ["dist"],
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "./contracts": { "types": "./dist/contracts.d.ts", "default": "./dist/contracts.js" },
+    "./loading": { "types": "./dist/loading.d.ts", "default": "./dist/loading.js" },
+    "./web": { "types": "./dist/web.d.ts", "default": "./dist/web.js" },
+    "./native": { "types": "./dist/native.d.ts", "default": "./dist/native.js" }
+  },
+  "scripts": {
+    "build": "tsup src/contracts.ts src/loading.ts src/web.ts src/native.ts --format esm --dts --out-dir dist --clean --external react --external react-native",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/test.mjs"
+  },
+  "peerDependencies": {
+    "react": "19.1.0",
+    "react-native": "0.81.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.1.10",
+    "typescript": "^5.9.3"
+  }
+}

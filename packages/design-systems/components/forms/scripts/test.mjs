@@ -30,6 +30,10 @@ if (!web.includes("aria-invalid") || !web.includes("aria-describedby"))
   throw new Error("Field error/help accessibility contract missing.");
 if (!native.includes("AccessibilityInfo.announceForAccessibility"))
   throw new Error("Native errors must be announced intentionally.");
+if (!web.includes("matches(':focus-visible')") || !web.includes("focusedValue === option.value"))
+  throw new Error("Web choice controls must expose explicit focus-visible states.");
+if (!native.includes("pressed && !disabled ? 0.72 : 1"))
+  throw new Error("Native choice controls must expose pressed feedback.");
 if (!native.includes("onSelect: select") || !native.includes("onCancel: close"))
   throw new Error(
     "Native Select lifecycle must close on selection and cancellation.",

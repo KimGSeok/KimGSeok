@@ -4,6 +4,7 @@ import ButtonVariantsExample from "@kimgseok/design-examples/button-variants";
 import DialogDefaultExample from "@kimgseok/design-examples/dialog-default";
 import ProgressDeterminateExample from "@kimgseok/design-examples/progress-determinate";
 import ProgressIndeterminateExample from "@kimgseok/design-examples/progress-indeterminate";
+import SkeletonRecipesExample from "@kimgseok/design-examples/skeleton-recipes";
 import TabsDefaultExample from "@kimgseok/design-examples/tabs-default";
 import TextStylesExample from "@kimgseok/design-examples/text-styles";
 import TextFieldDefaultExample from "@kimgseok/design-examples/text-field-default";
@@ -121,6 +122,18 @@ export const componentDocs: Readonly<Record<string, ComponentDocDefinition>> = {
     accessibility: ["determinate 상태는 progressbar value를 노출합니다.", "indeterminate 상태는 존재하지 않는 진행률을 0으로 표시하지 않습니다.", "레이블은 진행 중인 작업의 대상을 설명합니다."],
     motion: { trigger: "value change · indeterminate", token: "motion.normal · motion.slow", behavior: "진행률은 transform으로 전환하고 불확정 상태는 반복 이동합니다.", reducedMotion: "반복 이동을 정적인 패턴으로 바꾸고 진행 상태 의미는 유지합니다." },
     platformNote: "두 플랫폼 모두 determinate/indeterminate 의미를 공유하고 각 렌더러의 애니메이션 API를 사용합니다.",
+  },
+  "skeleton-region": {
+    examples: [example("recipes", "콘텐츠 구조 recipe", "목록과 카드의 최종 레이아웃을 유지하는 구조화된 로딩 표본입니다.", "apps/design-examples/src/skeleton-recipes.tsx", SkeletonRecipesExample)],
+    api: [
+      prop("accessibilityLabel", "string", "—", true, "불러오는 콘텐츠 대상을 설명하는 busy region 이름입니다."),
+      prop("recipe", '"text-block" | "list-item" | "avatar-row" | "card" | "table-row" | "form"', "—", false, "최종 콘텐츠 구조와 대응하는 검토된 placeholder 조합입니다."),
+      prop("count", "1–8", "recipe 기본값", false, "반복되는 목록 또는 행의 개수입니다."),
+      prop("items", "readonly SkeletonItem[]", "—", false, "마이그레이션과 예외 레이아웃을 위한 저수준 조합입니다. recipe와 함께 사용할 수 없습니다."),
+    ],
+    accessibility: ["개별 placeholder는 장식 요소로 숨깁니다.", "영역 하나에 aria-busy와 작업 대상을 설명하는 레이블을 제공합니다.", "성공 콘텐츠 또는 오류가 준비되면 전체 SkeletonRegion을 교체합니다."],
+    motion: { trigger: "loading region mounted", token: "motion.skeletonPulse", behavior: "1.6초 주기의 낮은 대비 opacity pulse만 반복합니다.", reducedMotion: "pulse를 제거하고 정적인 placeholder 구조를 유지합니다." },
+    platformNote: "Web과 Native가 동일한 recipe·count 계약을 공유하며 각 플랫폼의 reduced-motion 설정을 따릅니다.",
   },
 };
 

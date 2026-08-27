@@ -10,6 +10,8 @@ for (const marker of [
   'event.key !== "Tab"',
   "registerOverlay",
   "createPortal",
+  "useMotionPresence",
+  "resolveMotionRecipe",
 ])
   if (!web.includes(marker))
     throw new Error(`Web Dialog contract missing ${marker}`);
@@ -31,12 +33,14 @@ if (!native.includes("useSafeAreaInsets") || !native.includes("ScrollView"))
     "Native overlays require safe-area and scrollable content boundaries.",
   );
 if (
-  !native.includes("isReduceMotionEnabled") ||
+  !native.includes("@kimgseok/design-motion/native") ||
   !native.includes("KeyboardAvoidingView")
 )
   throw new Error(
     "Native overlays require reduced-motion and keyboard avoidance.",
   );
+if (!native.includes('animationType={reduceMotion ? "none" : "fade"}'))
+  throw new Error("Every Native fade overlay must respect reduced motion.");
 for (const marker of [
   "stack.push(panel)",
   "document.addEventListener('focusin'",

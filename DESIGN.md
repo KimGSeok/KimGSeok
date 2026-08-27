@@ -108,14 +108,22 @@ Button, feedback, overlay, navigation, form, date-picker, primitive 패키지는
 
 ## 6. Motion & Interaction
 
-| Token | Duration | Usage |
-|---|---:|---|
-| fast | 120ms | press, focus feedback |
-| normal | 200ms | 일반 상태 전환 |
-| slow | 320ms | overlay, skeleton |
-| reduced | 0ms | reduced-motion 대체 |
+| Recipe | Duration | Easing | Usage |
+|---|---:|---|---|
+| press | 120ms | standard | press, hover, focus feedback |
+| stateChange | 180ms | standard | selection, value, colour state |
+| enter | 200ms | decelerate | small surface entry |
+| exit | 140ms | accelerate | small surface exit |
+| overlay | 240ms | decelerate | Dialog, BottomSheet, Menu |
+| progressLoop | 1200ms | linear | Spinner, indeterminate Progress |
+| skeletonPulse | 1600ms | standard | calm Skeleton opacity pulse |
+| reduced | 0ms | linear | reduced-motion replacement |
 
-애니메이션은 transform/opacity 중심으로 구현하며 `prefers-reduced-motion` 또는 Native reduce-motion 설정을 존중한다. 모든 interactive primitive는 hover/pressed/focus/disabled/loading 상태를 계약에 포함한다.
+`@kimgseok/design-motion` is the cross-platform source for recipes and reduced-motion state. The legacy `fast`, `normal`, and `slow` durations remain compatibility aliases only. Components do not embed durations or easing strings.
+
+Animations use transform and opacity only. Colour-only state feedback may remain under reduced motion, but spatial movement and continuous rotation stop. A reduced-motion preference that has not resolved yet is treated as reduced. Every interactive primitive includes the applicable hover, pressed, focus-visible, disabled, loading, and pointer-cancel states; non-applicable states are documented rather than simulated.
+
+Loading uses separate patterns: Skeleton is for initial layout loading, Spinner/Progress is for bounded local work, and background refresh preserves existing content. Products own data fetching, empty/error copy, and retry policy. `useStableLoading` prevents a short request from flashing a loading surface and keeps a visible loading surface stable long enough to read.
 
 ## 7. Depth & Surface
 
