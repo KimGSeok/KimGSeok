@@ -5,6 +5,7 @@ import { spawnSync } from "node:child_process";
 
 const packages = [
   ["tokens", "foundation/tokens"],
+  ["motion", "foundation/motion"],
   ["icons", "foundation/icons"],
   ["button", "components/button"],
   ["primitives", "primitives"],

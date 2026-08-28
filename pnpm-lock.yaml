@@ -293,9 +293,15 @@ importers:
 
   packages/design-systems/components/button:
     dependencies:
+      '@kimgseok/design-feedback':
+        specifier: workspace:^
+        version: link:../feedback
       '@kimgseok/design-icons':
         specifier: workspace:^
         version: link:../../foundation/icons
+      '@kimgseok/design-motion':
+        specifier: workspace:^
+        version: link:../../foundation/motion
       '@kimgseok/design-tokens':
         specifier: workspace:^
         version: link:../../foundation/tokens
@@ -315,6 +321,9 @@ importers:
 
   packages/design-systems/components/date-picker:
     dependencies:
+      '@kimgseok/design-motion':
+        specifier: workspace:^
+        version: link:../../foundation/motion
       '@kimgseok/design-overlays':
         specifier: workspace:^
         version: link:../overlays
@@ -340,6 +349,9 @@ importers:
 
   packages/design-systems/components/feedback:
     dependencies:
+      '@kimgseok/design-motion':
+        specifier: workspace:^
+        version: link:../../foundation/motion
       '@kimgseok/design-tokens':
         specifier: workspace:^
         version: link:../../foundation/tokens
@@ -415,6 +427,9 @@ importers:
       '@kimgseok/design-button':
         specifier: workspace:^
         version: link:../button
+      '@kimgseok/design-motion':
+        specifier: workspace:^
+        version: link:../../foundation/motion
       '@kimgseok/design-tokens':
         specifier: workspace:^
         version: link:../../foundation/tokens
@@ -460,6 +475,22 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/design-systems/foundation/motion:
+    dependencies:
+      react:
+        specifier: 19.1.0
+        version: 19.1.0
+      react-native:
+        specifier: 0.81.0
+        version: 0.81.0(@babel/core@7.29.7)(@react-native/metro-config@0.87.0(@babel/core@7.29.7))(@types/react@19.1.17)(react@19.1.0)
+    devDependencies:
+      '@types/react':
+        specifier: ~19.1.10
+        version: 19.1.17
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/design-systems/foundation/tokens: {}
 
   packages/design-systems/primitives:
@@ -467,9 +498,15 @@ importers:
       '@kimgseok/design-button':
         specifier: workspace:^
         version: link:../components/button
+      '@kimgseok/design-feedback':
+        specifier: workspace:^
+        version: link:../components/feedback
       '@kimgseok/design-icons':
         specifier: workspace:^
         version: link:../foundation/icons
+      '@kimgseok/design-motion':
+        specifier: workspace:^
+        version: link:../foundation/motion
       '@kimgseok/design-tokens':
         specifier: workspace:^
         version: link:../foundation/tokens

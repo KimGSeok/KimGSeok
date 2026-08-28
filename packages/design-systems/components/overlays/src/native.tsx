@@ -19,6 +19,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { getNativeTheme } from "@kimgseok/design-tokens/native";
+import { useReducedMotion } from "@kimgseok/design-motion/native";
 import { NativeButton } from "@kimgseok/design-button/native";
 import {
   assertConfirmationContract,
@@ -36,25 +37,6 @@ function useTheme() {
     Platform.OS === "android" ? "android" : "ios",
   );
 }
-function useReduceMotion() {
-  const [value, setValue] = useState(true);
-  useEffect(() => {
-    let mounted = true;
-    void AccessibilityInfo.isReduceMotionEnabled().then((next) => {
-      if (mounted) setValue(next);
-    });
-    const subscription = AccessibilityInfo.addEventListener(
-      "reduceMotionChanged",
-      setValue,
-    );
-    return () => {
-      mounted = false;
-      subscription.remove();
-    };
-  }, []);
-  return value;
-}
-
 export function NativeDialog({
   open,
   title,
@@ -67,7 +49,7 @@ export function NativeDialog({
 }: DialogContract) {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
-  const reduceMotion = useReduceMotion();
+  const reduceMotion = useReducedMotion();
   const canCloseOnBackdrop = intent !== "destructive" && closeOnBackdrop;
   return (
     <Modal
@@ -166,7 +148,7 @@ export function NativeBottomSheet({
 }: BottomSheetContract) {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
-  const reduceMotion = useReduceMotion();
+  const reduceMotion = useReducedMotion();
   const canCloseOnBackdrop = intent !== "destructive" && closeOnBackdrop;
   return (
     <Modal
@@ -408,6 +390,7 @@ export function NativeMenu({
   });
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  const reduceMotion = useReducedMotion();
   const controlled = open !== undefined;
   const [localOpen, setLocalOpen] = useState(defaultOpen ?? false);
   const shown = controlled ? open : localOpen;
@@ -477,7 +460,7 @@ export function NativeMenu({
         </Text>
       </Pressable>
       <Modal
-        animationType="fade"
+        animationType={reduceMotion ? "none" : "fade"}
         onRequestClose={() => setShown(false)}
         presentationStyle="overFullScreen"
         statusBarTranslucent

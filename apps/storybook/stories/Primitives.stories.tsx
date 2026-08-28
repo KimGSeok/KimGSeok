@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Avatar, Badge, Card, Divider, EmptyState, Heading, IconButton, ListItem, SkeletonRegion, Surface, Table, Text } from '@kimgseok/design-primitives/web';
 import { Button } from '@kimgseok/design-button/web';
 import TextStylesExample from '@kimgseok/design-examples/text-styles';
+import SkeletonRecipesExample from '@kimgseok/design-examples/skeleton-recipes';
 
 const meta = { title: 'Foundations/Primitives', component: Surface, parameters: { layout: 'padded' }, tags: ['autodocs'] } satisfies Meta<typeof Surface>;
 export default meta;
@@ -56,6 +57,7 @@ export const EmptyStatesNoIconError: Story = { render: () => <div style={{ maxWi
 const skeletonItems = [{ size: 'sm' }, { size: 'md' }, { size: 'lg' }, { size: 'full' }, { shape: 'block', size: 'sm' }, { shape: 'block', size: 'md' }, { shape: 'block', size: 'lg' }, { shape: 'block', size: 'full' }, { shape: 'circle', size: 'sm' }, { shape: 'circle', size: 'md' }, { shape: 'circle', size: 'lg' }] as const;
 export const Skeletons: Story = { render: () => <div style={{ maxWidth: 320 }}><SkeletonRegion accessibilityLabel="주문 정보를 불러오는 중" items={skeletonItems} /></div> };
 export const SkeletonsDark: Story = { render: () => <div data-theme="dark" style={{ background: 'var(--kg-color-bg-canvas)', padding: 24 }}><SkeletonRegion accessibilityLabel="주문 정보를 불러오는 중" items={[{ size: 'md' }, { shape: 'block', size: 'full' }]} /></div> };
+export const SkeletonRecipes: Story = { render: () => <SkeletonRecipesExample /> };
 const orderColumns = [{ id: 'product', label: '상품' }, { id: 'status', label: '상태' }, { align: 'end', id: 'amount', label: '결제 금액' }] as const;
 const orderRows = [{ id: 'one', cells: { product: '새벽 배송 상품', status: '배송 준비', amount: '12,000원' } }, { id: 'two', cells: { product: '주문한 지 오래된 한국어 장문 상품명', status: '배송 중', amount: '248,000원' } }] as const;
 export const Tables: Story = { render: () => <Table caption="주문 요약" columns={orderColumns} rows={orderRows} /> };

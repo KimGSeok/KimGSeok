@@ -19,6 +19,8 @@ assert.match(native, /assertDatePickerContract\(\{ \.\.\.props, value \}\)/);
 assert.match(native, /assertDateRangePickerContract\(\{ \.\.\.props, value \}\)/);
 assert.match(native, /renderPicker/);
 for (const contract of ["<Modal", "onDismiss={onClose}", "onRequestClose={onClose}", "accessibilityViewIsModal", "announceForAccessibility", "useSafeAreaInsets", "formatDateForLocale", "kind: \"single\"", "kind: \"range\""]) assert.ok(native.includes(contract), `Native picker presentation contract missing: ${contract}`);
+assert.match(native, /animationType=\{reduceMotion \? "none" : "slide"\}/);
+assert.match(native, /@kimgseok\/design-motion\/native/);
 for (const contract of ["resolveDatePickerMessages", "copy.previousMonth", "copy.nextMonth", "copy.chooseStartDate", "copy.chooseEndDate"]) assert.ok(web.includes(contract), `Date picker localisation contract missing: ${contract}`);
 assert.match(web, /setDraft\(value\)/);
 assert.match(web, /onValueChange\(completed\);\s*changeOpen\(false\)/);

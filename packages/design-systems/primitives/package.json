@@ -20,14 +20,16 @@
     "./native": { "types": "./dist/native.d.ts", "default": "./dist/native.js" }
   },
   "scripts": {
-    "build": "tsup src/web.tsx src/native.tsx --format esm --dts --out-dir dist --clean --external react --external react-native --external @kimgseok/design-tokens --external @kimgseok/design-icons --external @kimgseok/design-button",
+    "build": "tsup src/web.tsx src/native.tsx --format esm --dts --out-dir dist --clean --external react --external react-native --external @kimgseok/design-tokens --external @kimgseok/design-motion --external @kimgseok/design-icons --external @kimgseok/design-button --external @kimgseok/design-feedback",
     "typecheck": "tsc --noEmit",
     "test": "node scripts/test.mjs"
   },
   "dependencies": {
     "@kimgseok/design-tokens": "workspace:^",
+    "@kimgseok/design-motion": "workspace:^",
     "@kimgseok/design-icons": "workspace:^",
-    "@kimgseok/design-button": "workspace:^"
+    "@kimgseok/design-button": "workspace:^",
+    "@kimgseok/design-feedback": "workspace:^"
   },
   "peerDependencies": {
     "react": "19.1.0",

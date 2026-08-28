@@ -9,14 +9,14 @@ const showcaseSource = readFileSync(new URL("../app/components/[slug]/ComponentS
 const styles = readFileSync(new URL("../app/globals.css", import.meta.url), "utf8");
 const examplePackage = JSON.parse(readFileSync(new URL("../../design-examples/package.json", import.meta.url), "utf8"));
 
-for (const slug of ["text", "button", "text-field", "dialog", "tabs", "progress"]) {
+for (const slug of ["text", "button", "text-field", "dialog", "tabs", "progress", "skeleton-region"]) {
   assert.match(docsSource, new RegExp(`(?:^|\\n)  ["']?${slug}["']?: \\{`), `${slug} must have a rich documentation contract`);
 }
 
 const examplePaths = [...docsSource.matchAll(/sourcePath: string|"(apps\/design-examples\/src\/[^"]+\.tsx)"/g)]
   .map((match) => match[1])
   .filter(Boolean);
-assert.equal(examplePaths.length, 9, "the pilot must expose nine maintained examples");
+assert.equal(examplePaths.length, 10, "the documentation set must expose ten maintained examples");
 assert.equal(new Set(examplePaths).size, examplePaths.length, "each example source must be unique");
 for (const path of examplePaths) {
   assert.ok(existsSync(new URL(path, repo)), `${path} must exist`);
@@ -62,4 +62,4 @@ for (const storyFile of ["Button", "Feedback", "Forms", "Navigation", "Overlays"
   assert.match(source, /@kimgseok\/design-examples\//, `${storyFile} stories must reuse the Docs example source`);
 }
 
-console.log(`Component Docs checks passed (6 pilot components, ${examplePaths.length} shared examples)`);
+console.log(`Component Docs checks passed (7 rich components, ${examplePaths.length} shared examples)`);

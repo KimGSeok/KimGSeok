@@ -7,6 +7,7 @@ const expectedRepository = "https://github.com/KimGSeok/design-system.git";
 const expectedRegistry = "https://npm.pkg.github.com";
 const packageDirectories = [
   "foundation/tokens",
+  "foundation/motion",
   "foundation/icons",
   "components/button",
   "primitives",

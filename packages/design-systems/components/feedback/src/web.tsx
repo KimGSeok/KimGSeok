@@ -15,13 +15,15 @@ const spinnerSizes = { sm: 16, md: 24, lg: 32 } as const;
 export function Spinner({
   accessibilityLabel = "로딩 중",
   size = "md",
+  decorative = false,
 }: SpinnerContract) {
   const diameter = spinnerSizes[size];
   return (
     <span
-      aria-label={accessibilityLabel}
-      aria-live="polite"
-      role="status"
+      aria-hidden={decorative || undefined}
+      aria-label={decorative ? undefined : accessibilityLabel}
+      aria-live={decorative ? undefined : "polite"}
+      role={decorative ? undefined : "status"}
       style={{
         alignItems: "center",
         display: "inline-flex",
@@ -36,10 +38,15 @@ export function Spinner({
         className="kg-feedback-spinner"
         style={{
           animation:
-            "kg-feedback-spin var(--kg-foundation-motion-slow) linear infinite",
-          border: "2px solid var(--kg-color-feedback-spinner-track)",
+            "kg-feedback-spin var(--kg-foundation-motion-duration-progress-loop) var(--kg-foundation-motion-easing-linear) infinite",
+          border: decorative
+            ? "2px solid transparent"
+            : "2px solid var(--kg-color-feedback-spinner-track)",
           borderRadius: "50%",
-          borderTopColor: "var(--kg-color-feedback-spinner-indicator)",
+          borderRightColor: decorative ? "currentColor" : undefined,
+          borderTopColor: decorative
+            ? "currentColor"
+            : "var(--kg-color-feedback-spinner-indicator)",
           boxSizing: "border-box",
           height: diameter,
           width: diameter,
@@ -60,7 +67,7 @@ export function Progress({
   const indeterminate = normalized === undefined;
   const fillStyle = {
     animation: indeterminate
-      ? "kg-feedback-indeterminate 1.2s ease-in-out infinite"
+      ? "kg-feedback-indeterminate var(--kg-foundation-motion-duration-progress-loop) var(--kg-foundation-motion-easing-standard) infinite"
       : undefined,
     transform: indeterminate ? undefined : `scaleX(${normalized})`,
   } as CSSProperties;
@@ -95,7 +102,7 @@ export function Progress({
           display: "block",
           height: "100%",
           transformOrigin: "left",
-          transition: "transform var(--kg-foundation-motion-normal) ease",
+          transition: "transform var(--kg-foundation-motion-duration-state-change) var(--kg-foundation-motion-easing-standard)",
           width: "100%",
         }}
       />

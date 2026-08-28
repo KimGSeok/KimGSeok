@@ -186,12 +186,13 @@ export function NativeCheckbox({
       accessibilityState={{ checked, disabled }}
       disabled={disabled}
       onPress={() => onCheckedChange(!checked)}
-      style={{
+      style={({ pressed }) => ({
         alignItems: "center",
         flexDirection: "row",
         gap: 8,
         minHeight: 44,
-      }}
+        opacity: pressed && !disabled ? 0.72 : 1,
+      })}
     >
       <View
         style={{
@@ -273,12 +274,13 @@ export function NativeRadioGroup({
             disabled={disabled}
             key={option.value}
             onPress={() => onValueChange(option.value)}
-            style={{
+            style={({ pressed }) => ({
               alignItems: "center",
               flexDirection: "row",
               gap: 8,
               minHeight: 44,
-            }}
+              opacity: pressed && !disabled ? 0.72 : 1,
+            })}
           >
             <View
               style={{

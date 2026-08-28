@@ -14,7 +14,7 @@ the user-owned deferred release follow-up recorded in `done-when.md`.
 | ---: | --- | --- | --- | --- | --- |
 | 1 | Typography | Foundation | foundation/foundation/foundation | finite semantic roles and responsive hierarchy | `p0-primitives.md`; tokens; Storybook/Expo |
 | 2 | Colour and themes | Foundation | foundation/foundation/foundation | public palette behind semantic light/dark tokens | `p0-primitives.md`; tokens; Storybook/Expo |
-| 3 | Spacing/radius/elevation/motion/focus/touch | Foundation | foundation/foundation/foundation | semantic foundations, reduced motion, 44px targets | `p0-primitives.md`; tokens; Storybook/Expo |
+| 3 | Spacing/radius/elevation/motion/focus/touch | Foundation | foundation/foundation/foundation | semantic recipes, reduced motion, presence lifecycle, 44px targets | `p0-primitives.md`; `motion.md`; tokens; Storybook/Expo |
 | 4 | Button | Core | yes/yes/yes | action hierarchy, loading/disabled, guarded async action | `button.md`; button package; Storybook/Expo |
 | 5 | IconButton | Extended | yes/yes/yes | icon-only action with mandatory accessible name | `p0-primitives.md`; primitives; Storybook/Expo |
 | 6 | Text / Heading | Foundation | foundation/foundation/foundation | finite roles rather than arbitrary font values | `p0-primitives.md`; primitives; Storybook/Expo |
