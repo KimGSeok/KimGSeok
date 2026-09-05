@@ -30,7 +30,12 @@ assert.equal(Object.keys(examplePackage.exports).length, examplePaths.length, "e
 for (const section of ["examples", "installation", "usage", "api-reference", "accessibility", "platforms"]) {
   assert.match(detailSource, new RegExp(`id=["']${section}["']`), `rich detail must expose ${section}`);
 }
+const decisionOrder = ["examples", "usage", "installation", "accessibility", "api-reference", "platforms"]
+  .map((section) => detailSource.indexOf(`id="${section}"`));
+assert.ok(decisionOrder.every((position) => position >= 0), "every decision-flow section must be present");
+assert.ok(decisionOrder.every((position, index) => index === 0 || decisionOrder[index - 1] < position), "rich detail must present preview, judgment, adoption, and supporting detail in order");
 assert.match(detailSource, /Native는 import와 타입 계약/, "Native evidence must not be presented as a live Web preview");
+assert.doesNotMatch(detailSource, /entry\.maturity/, "default maturity must remain internal metadata");
 assert.match(detailSource, /mobile-on-this-page/, "narrow screens must retain a reachable page outline");
 assert.match(showcaseSource, /role="tablist"/);
 assert.match(showcaseSource, /role="tabpanel"/);

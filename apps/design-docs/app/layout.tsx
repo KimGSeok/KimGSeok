@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s · KimGSeok Design System",
   },
   description:
-    "Toss의 공개 원칙을 구현 기준으로 삼은 Web 및 React Native 디자인 시스템입니다.",
+    "Web과 React Native에서 공유하는 컴포넌트, 토큰, 사용 가이드입니다.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -16,32 +16,32 @@ export default function GettingStartedPage() {
       <section aria-labelledby="workspace-title">
         <h2 id="workspace-title">Workspace 준비</h2>
         <p>저장소 루트에서 의존성을 설치하고 디자인 시스템 패키지를 빌드합니다.</p>
-        <pre><code>{`pnpm install --frozen-lockfile
+        <pre tabIndex={0}><code>{`pnpm install --frozen-lockfile
 pnpm build`}</code></pre>
       </section>
 
       <section aria-labelledby="web-title">
-        <h2 id="web-title">Web</h2>
-        <p>Pretendard와 semantic token CSS를 앱 진입점에서 한 번 불러온 뒤 Web export를 사용합니다.</p>
-        <pre><code>{`pnpm add pretendard
+        <h2 id="web-title">Web에서 사용하기</h2>
+        <p>Pretendard와 semantic token CSS를 앱 진입점에서 한 번 불러온 뒤 필요한 컴포넌트를 가져옵니다.</p>
+        <pre tabIndex={0}><code>{`pnpm add pretendard
 
 import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "@kimgseok/design-tokens/css";
-import { colors } from "@kimgseok/design-tokens/colors";
-import { Text } from "@kimgseok/design-primitives/web";
+import { Button } from "@kimgseok/design-button/web";
 
-<Text textStyle="text-l-medium" color={colors.red500}>강조</Text>`}</code></pre>
+export function ContinueButton({ onContinue }: { onContinue: () => void }) {
+  return <Button onAction={onContinue}>계속</Button>;
+}`}</code></pre>
       </section>
 
       <section aria-labelledby="native-title">
-        <h2 id="native-title">React Native</h2>
-        <p>Native export는 같은 의미 계약을 유지하면서 플랫폼 상호작용을 직접 구현합니다.</p>
-        <pre><code>{`import { NativeText } from "@kimgseok/design-primitives/native";
-import { colors } from "@kimgseok/design-tokens/colors";
+        <h2 id="native-title">React Native에서 사용하기</h2>
+        <p>Native export는 같은 사용 의미를 유지하면서 터치와 접근성 동작을 플랫폼에 맞게 구현합니다.</p>
+        <pre tabIndex={0}><code>{`import { NativeButton } from "@kimgseok/design-button/native";
 
-<NativeText textStyle="text-l-medium" color={colors.red500}>
-  강조
-</NativeText>`}</code></pre>
+export function ContinueButton({ onContinue }: { onContinue: () => void }) {
+  return <NativeButton onAction={onContinue}>계속</NativeButton>;
+}`}</code></pre>
       </section>
     </DocumentationPage>
   );

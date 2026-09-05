@@ -32,7 +32,7 @@ export const componentNavigationGroups: readonly DocsNavigationGroup[] =
       label: category,
       description,
       children: documentedComponents
-        .filter((entry) => entry.category === category)
+        .filter((entry) => entry.role === category)
         .map(({ name, slug }) => ({ href: `/components/${slug}`, label: name }))
         .toSorted((left, right) => left.label.localeCompare(right.label, "en")),
     }))
@@ -54,6 +54,4 @@ export const docsNavigation: readonly DocsNavigationItem[] = [
     label: "컴포넌트",
     groups: componentNavigationGroups,
   },
-  { href: "/utilities", label: "유틸리티" },
-  { href: "/migration", label: "마이그레이션" },
 ];

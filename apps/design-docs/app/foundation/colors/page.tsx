@@ -51,7 +51,7 @@ export default function ColorsPage() {
 
       <section aria-labelledby="color-api-title">
         <h2 id="color-api-title">Consumer API</h2>
-        <pre><code>{`import { colors } from "@kimgseok/design-tokens/colors";
+        <pre tabIndex={0}><code>{`import { colors } from "@kimgseok/design-tokens/colors";
 
 <Text color={colors.red500}>Object token</Text>
 <Text color="red-500">String union token</Text>

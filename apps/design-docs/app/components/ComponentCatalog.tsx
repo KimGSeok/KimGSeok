@@ -25,6 +25,15 @@ function searchableText(entry: CatalogEntry) {
   ].filter(Boolean).join(" "));
 }
 
+function matchRank(entry: CatalogEntry, needle: string) {
+  if (!needle) return 0;
+  const name = normalize(entry.name);
+  if (name === needle) return 0;
+  if (name.startsWith(needle)) return 1;
+  if (entry.aliases.some((alias) => normalize(alias) === needle)) return 2;
+  return 3;
+}
+
 export function ComponentCatalog({
   entries,
   initialPlatform,
@@ -37,17 +46,23 @@ export function ComponentCatalog({
   const router = useRouter();
   const searchRef = useRef<HTMLInputElement>(null);
   const firstResultRef = useRef<HTMLAnchorElement>(null);
+  const urlSyncTimeoutRef = useRef<number | null>(null);
   const [query, setQuery] = useState(initialQuery ?? "");
   const [platform, setPlatform] = useState<PlatformFilter>(
     validPlatform(initialPlatform),
   );
   const results = useMemo(() => {
     const needle = normalize(query);
-    return entries.filter((entry) => {
-      const matchesQuery = !needle || searchableText(entry).includes(needle);
-      const matchesPlatform = platform === "all" || entry.platforms.includes(platform);
-      return matchesQuery && matchesPlatform;
-    });
+    return entries
+      .filter((entry) => {
+        const matchesQuery = !needle || searchableText(entry).includes(needle);
+        const matchesPlatform = platform === "all" || entry.platforms.includes(platform);
+        return matchesQuery && matchesPlatform;
+      })
+      .toSorted((left, right) =>
+        matchRank(left, needle) - matchRank(right, needle) ||
+        left.name.localeCompare(right.name, "en"),
+      );
   }, [entries, platform, query]);
 
   useEffect(() => {
@@ -55,10 +70,16 @@ export function ComponentCatalog({
     if (query.trim()) params.set("q", query.trim());
     if (platform !== "all") params.set("platform", platform);
     const nextUrl = `/components${params.size ? `?${params}` : ""}`;
-    const timeout = window.setTimeout(() => {
+    urlSyncTimeoutRef.current = window.setTimeout(() => {
       window.history.replaceState(null, "", nextUrl);
+      urlSyncTimeoutRef.current = null;
     }, 120);
-    return () => window.clearTimeout(timeout);
+    return () => {
+      if (urlSyncTimeoutRef.current !== null) {
+        window.clearTimeout(urlSyncTimeoutRef.current);
+        urlSyncTimeoutRef.current = null;
+      }
+    };
   }, [platform, query]);
 
   useEffect(() => {
@@ -99,6 +120,10 @@ export function ComponentCatalog({
                 }
                 if (event.key === "Enter" && results[0]) {
                   event.preventDefault();
+                  if (urlSyncTimeoutRef.current !== null) {
+                    window.clearTimeout(urlSyncTimeoutRef.current);
+                    urlSyncTimeoutRef.current = null;
+                  }
                   router.push(`/components/${results[0].slug}`);
                 }
               }}

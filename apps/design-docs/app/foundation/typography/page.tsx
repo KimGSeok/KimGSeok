@@ -98,7 +98,7 @@ export default function TypographyPage() {
 
       <section aria-labelledby="type-api-title">
         <h2 id="type-api-title">Consumer API</h2>
-        <pre><code>{`import { colors } from "@kimgseok/design-tokens/colors";
+        <pre tabIndex={0}><code>{`import { colors } from "@kimgseok/design-tokens/colors";
 import { Text } from "@kimgseok/design-primitives/web";
 
 <Text textStyle="text-l-medium" color={colors.red500}>

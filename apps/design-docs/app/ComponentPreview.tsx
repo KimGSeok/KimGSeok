@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Button } from "@kimgseok/design-button/web";
-import { Callout, Progress, Spinner } from "@kimgseok/design-feedback/web";
-import { Badge, Card, Heading, Text } from "@kimgseok/design-primitives/web";
+import { Callout } from "@kimgseok/design-feedback/web";
+import { Card, Heading, Text } from "@kimgseok/design-primitives/web";
 import { colors } from "@kimgseok/design-tokens/colors";
 import { DatePicker } from "@kimgseok/design-date-picker/web";
 
@@ -15,23 +15,24 @@ export function ComponentPreview() {
     <Card accessibilityLabel="디자인 시스템 실제 컴포넌트 미리보기" variant="raised">
       <div className="preview-stack">
         <div className="preview-heading">
-          <div>
-            <Badge label="Stable" tone="positive" />
-            <Heading level={2} textStyle="title-xl-bold">같은 계약, 플랫폼에 맞는 구현</Heading>
-          </div>
-          <Spinner accessibilityLabel="동기화 상태 확인 중" size="sm" />
+          <Heading level={2} textStyle="title-l-semibold">실제 컴포넌트를 바로 사용해보세요</Heading>
         </div>
-        <Text as="p" color={colors.fgSecondary} textStyle="text-m-regular">
-          이 화면 자체가 배포 대상 패키지를 직접 사용합니다. 문서용 복제 컴포넌트는 만들지 않습니다.
+        <Text as="p" color={colors.fgSecondary} textStyle="text-s-regular">
+          이 미리보기는 배포 대상 Web 컴포넌트를 직접 렌더링합니다.
         </Text>
-        <Progress accessibilityLabel="승인된 정적 범위 구현률" value={1} />
-        <DatePicker helpText="실제 패키지의 Composite 예시입니다." label="기준 날짜" onValueChange={setDate} value={date} />
+        <DatePicker
+          helpText="날짜를 선택한 뒤 버튼으로 결과를 확인하세요."
+          label="기준 날짜"
+          onValueChange={(nextDate) => {
+            setDate(nextDate);
+            setSaved(false);
+          }}
+          value={date}
+        />
         <div className="preview-actions">
-          <Button onAction={() => setSaved(true)}>기준 확인하기</Button>
-          <Button variant="secondary">구성 살펴보기</Button>
-          <Button disabled variant="tertiary">준비 중</Button>
+          <Button disabled={!date} onAction={() => setSaved(true)} size="sm">선택 확인하기</Button>
         </div>
-        {saved ? <Callout announce description="실제 Button과 Callout의 상호작용입니다." title="디자인 시스템이 연결됐어요" tone="positive" /> : null}
+        {saved && date ? <Callout announce description={`${date} 날짜를 선택했습니다.`} title="선택을 확인했어요" tone="positive" /> : null}
       </div>
     </Card>
   );

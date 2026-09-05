@@ -1,7 +1,3 @@
-import {
-  componentCategoryDefinitions,
-  componentCategoryPolicy,
-} from "@kimgseok/design-catalog";
 import type { Metadata } from "next";
 import { documentedComponents } from "../docs-navigation";
 import { ComponentCatalog } from "./ComponentCatalog";
@@ -29,28 +25,10 @@ export default async function ComponentsPage({
         <p className="eyebrow">COMPONENTS</p>
         <h1>필요한 컴포넌트를 바로 찾으세요.</h1>
         <p>
-          이름이나 역할로 검색하고 플랫폼을 확인한 뒤, 상세 계약과 실제 상태
-          증거로 이동할 수 있습니다.
+          이름이나 만들려는 화면의 역할로 검색하고, 대상 플랫폼에서 사용할 수
+          있는지 확인하세요.
         </p>
       </header>
-      <details className="component-category-guide">
-        <summary>컴포넌트 그룹 분류 기준</summary>
-        <div>
-          <p>{componentCategoryPolicy.principle}</p>
-          <ul className="component-category-list">
-            {componentCategoryDefinitions.map(({ category, description, examples }) => (
-              <li key={category}>
-                <strong>{category}</strong>
-                <span>{description}</span>
-                <small>예: {examples.join(", ")}</small>
-              </li>
-            ))}
-          </ul>
-          <ul className="component-category-rules">
-            {componentCategoryPolicy.rules.map((rule) => <li key={rule}>{rule}</li>)}
-          </ul>
-        </div>
-      </details>
       <ComponentCatalog
         entries={componentEntries}
         initialPlatform={first(params.platform)}

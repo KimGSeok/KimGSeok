@@ -64,7 +64,7 @@ export const componentDocs: Readonly<Record<string, ComponentDocDefinition>> = {
       prop("onAction", "() => void | Promise<void>", "—", false, "중복 실행이 잠긴 사용자 행동입니다."),
       prop("onActionError", "(error: unknown) => void", "—", false, "실패 결과를 소비자 화면에서 복구하도록 전달합니다."),
     ],
-    accessibility: ["기본 button semantics와 keyboard activation을 유지합니다.", "loading과 pending 동안 aria-busy와 disabled를 함께 노출합니다.", "레이블은 결과가 아니라 실행할 행동을 설명합니다."],
+    accessibility: ["기본 button semantics와 keyboard\u00A0activation을 유지합니다.", "loading과 pending 동안 aria-busy와 disabled를 함께 노출합니다.", "레이블은 결과가 아니라 실행할 행동을 설명합니다."],
     motion: { trigger: "hover · press", token: "motion.fast", behavior: "배경색만 전환하며 위치나 크기를 움직이지 않습니다.", reducedMotion: "공간 이동이 없는 색상 상태 전환만 유지합니다." },
     platformNote: "Web과 Native가 variant·size·비동기 잠금 계약을 공유하며 플랫폼별 press/focus 입력만 다릅니다.",
   },

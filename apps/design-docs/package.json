@@ -7,7 +7,7 @@
     "build": "next build --webpack",
     "dev": "next dev",
     "start": "next start",
-    "test": "node --experimental-strip-types scripts/test-ia.mjs && node scripts/test-component-docs.mjs",
+    "test": "node --experimental-strip-types scripts/test-ia.mjs && node scripts/test-component-docs.mjs && node scripts/test-density.mjs",
     "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {

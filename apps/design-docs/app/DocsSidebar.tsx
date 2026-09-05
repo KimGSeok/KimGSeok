@@ -3,7 +3,7 @@ import { docsNavigation } from "./docs-navigation";
 
 export function DocsSidebar() {
   return (
-    <aside className="docs-sidebar">
+    <aside aria-label="전체 문서 탐색" className="docs-sidebar">
       <nav aria-label="문서 목차">
         <ul className="docs-nav-list">
           {docsNavigation.map((section) => (

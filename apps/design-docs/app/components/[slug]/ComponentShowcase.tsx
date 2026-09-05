@@ -93,7 +93,7 @@ export function ComponentShowcase({ examples }: { examples: readonly RenderedExa
         id={`example-${selected.id}`}
         role="tabpanel"
       >
-        {view === "preview" ? <div className="showcase-preview" key={`${selected.id}-${resetKey}`}>{selected.preview}</div> : <pre><code>{selected.code}</code></pre>}
+        {view === "preview" ? <div className="showcase-preview" key={`${selected.id}-${resetKey}`}>{selected.preview}</div> : <pre tabIndex={0}><code>{selected.code}</code></pre>}
       </div>
       <p aria-live="polite" className="sr-only">{copyStatus === "copied" ? "예제 코드를 복사했습니다." : copyStatus === "failed" ? "예제 코드를 복사하지 못했습니다." : ""}</p>
     </div>

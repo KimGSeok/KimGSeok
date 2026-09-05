@@ -28,7 +28,7 @@ async function assertA11y(target, label) {
 }
 
 await page.goto(baseUrl, { waitUntil: "networkidle" });
-if (!(await page.getByRole("heading", { name: /제품보다 먼저 합의하는/ }).isVisible())) {
+if (!(await page.getByRole("heading", { name: /필요한 UI를 찾고, 확인하고, 바로 적용하세요/ }).isVisible())) {
   throw new Error("Design Docs hero did not render.");
 }
 if ((await page.locator("body").innerText()).trim().length < 500) {
@@ -45,7 +45,7 @@ if (!focusedBefore || !focusedAfter || focusedBefore === focusedAfter) {
   throw new Error("Calendar arrow navigation did not move focus.");
 }
 await page.keyboard.press("Escape");
-if (await dialog.isVisible()) throw new Error("Escape did not close DatePicker dialog.");
+await dialog.waitFor({ state: "hidden" });
 await assertA11y(page, "home");
 await page.screenshot({ path: screenshotDir + "/home-1280.png", fullPage: true });
 
@@ -61,7 +61,7 @@ if (!(await search.evaluate((node) => node === document.activeElement))) {
 await search.fill("토스트");
 await page.waitForTimeout(180);
 if ((await page.locator(".component-results > li").count()) !== 1 ||
-    !(await page.getByRole("link", { name: /ToastViewport/ }).isVisible())) {
+    !(await page.locator(".component-results").getByRole("link", { name: /ToastViewport/ }).isVisible())) {
   throw new Error("Korean alias search did not isolate ToastViewport.");
 }
 await page.keyboard.press("Escape");
@@ -83,7 +83,8 @@ await Promise.all([
 if (!(await page.getByText('import { NativeButton } from "@kimgseok/design-button/native";', { exact: true }).isVisible())) {
   throw new Error("Button detail does not expose the real Native export.");
 }
-if (!(await page.getByRole("link", { name: /packages\/design-systems\/components\/button\/src\/web-button\.tsx/ }).isVisible())) {
+const sourceHref = await page.getByRole("link", { name: /구현 소스 보기/ }).getAttribute("href");
+if (!sourceHref?.includes("packages/design-systems/components/button/src/web-button.tsx")) {
   throw new Error("Button detail source link is missing.");
 }
 await assertA11y(page, "button detail");
