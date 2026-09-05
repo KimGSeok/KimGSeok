@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import {
   normalizeProgress,
   normalizeToastDuration,
@@ -10,6 +10,8 @@ import {
   type SpinnerContract,
   type ToastContract,
 } from "./contracts";
+
+import { toastKey, useToastAction } from "./use-toast-action";
 
 const spinnerSizes = { sm: 16, md: 24, lg: 32 } as const;
 export function Spinner({
@@ -87,7 +89,7 @@ export function Progress({
         width: "100%",
       }}
     >
-      <style>{`@keyframes kg-feedback-indeterminate{0%{transform:translateX(-100%) scaleX(.35)}100%{transform:translateX(100%) scaleX(.35)}}@media(prefers-reduced-motion:reduce){.kg-feedback-progress-indeterminate{animation:none!important;background:repeating-linear-gradient(135deg,var(--kg-color-feedback-progress-fill) 0 6px,var(--kg-color-feedback-progress-track) 6px 12px)!important;transform:none!important}}`}</style>
+      <style>{`@keyframes kg-feedback-indeterminate{0%{transform:translateX(-100%) scaleX(.35)}100%{transform:translateX(100%) scaleX(.35)}}@media(prefers-reduced-motion:reduce){.kg-feedback-progress{transition:none!important}.kg-feedback-progress-indeterminate{animation:none!important;background:repeating-linear-gradient(135deg,var(--kg-color-feedback-progress-fill) 0 6px,var(--kg-color-feedback-progress-track) 6px 12px)!important;transform:none!important}}`}</style>
       <span
         aria-hidden="true"
         className={
@@ -133,8 +135,7 @@ function Toast({
   onOpenChange,
 }: ToastContract) {
   const [paused, setPaused] = useState(false);
-  const [pending, setPending] = useState(false);
-  const lock = useRef(false);
+  const { pending, runAction } = useToastAction({ open, message, action, onOpenChange });
   const normalizedDuration = normalizeToastDuration(
     durationMs,
     Boolean(action) || tone === "negative",
@@ -149,24 +150,6 @@ function Toast({
     return () => window.clearTimeout(timer);
   }, [normalizedDuration, onOpenChange, open, paused, persistent]);
   if (!open) return null;
-  const runAction = async () => {
-    if (!action || lock.current) return;
-    lock.current = true;
-    setPending(true);
-    try {
-      await action.onAction();
-      onOpenChange(false);
-    } catch (error) {
-      try {
-        action.onError(error);
-      } catch {
-        /* durable caller error surface owns secondary failure */
-      }
-    } finally {
-      lock.current = false;
-      setPending(false);
-    }
-  };
   const accent =
     tone === "neutral"
       ? "var(--kg-color-border-strong)"
@@ -238,7 +221,7 @@ function Toast({
 }
 
 export function ToastViewport({ toast }: { toast: ToastContract | null }) {
-  return toast ? <Toast {...toast} /> : null;
+  return toast ? <Toast key={toastKey(toast)} {...toast} /> : null;
 }
 
 export function Callout({

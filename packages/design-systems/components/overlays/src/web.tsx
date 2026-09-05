@@ -29,7 +29,7 @@ import {
   type MenuPlacement,
   type TooltipContract,
 } from "./contracts";
-import { registerOverlay } from "./web-overlay-manager";
+import { isTopOverlay, registerOverlay } from "./web-overlay-manager";
 
 const focusableSelector =
   'button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
@@ -87,7 +87,9 @@ export function Dialog({
   const visible = presence.phase === "entered";
   const trapFocus = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Escape") {
+      if (event.defaultPrevented || !isTopOverlay(event.currentTarget)) return;
       event.preventDefault();
+      event.stopPropagation();
       onOpenChange(false);
       return;
     }
@@ -231,7 +233,9 @@ export function BottomSheet({
   const visible = presence.phase === "entered";
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Escape") {
+      if (event.defaultPrevented || !isTopOverlay(event.currentTarget)) return;
       event.preventDefault();
+      event.stopPropagation();
       onOpenChange(false);
       return;
     }
@@ -791,7 +795,9 @@ export function Menu({
                     .find((node) => node && !node.disabled)
                     ?.focus();
                 } else if (event.key === "Escape") {
+                  if (event.defaultPrevented) return;
                   event.preventDefault();
+                  event.stopPropagation();
                   setShown(false);
                   triggerRef.current?.focus();
                 } else if (event.key === "Tab") setShown(false);

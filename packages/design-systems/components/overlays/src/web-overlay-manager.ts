@@ -3,6 +3,7 @@ const original = new Map<HTMLElement, { inert: boolean; ariaHidden: string | nul
 let originalOverflow = '';
 let guarding = false;
 
+export function isTopOverlay(panel: HTMLElement) { return stack.at(-1) === panel; }
 const focusableSelector = 'button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
 function remember(element: HTMLElement) {

@@ -106,6 +106,15 @@ Button, feedback, overlay, navigation, form, date-picker, primitive 패키지는
 - **Accessibility**: tab/tabpanel 관계, 복사 결과 live region, keyboard focus, overlay의 기존 focus lifecycle을 보존한다.
 - **Boundary**: 예제는 네트워크·라우팅·비즈니스 정책을 소유하지 않으며 Docs 전용 motion을 컴포넌트에 덧씌우지 않는다.
 
+### Composition examples and recovery
+
+- 목록 탐색, 입력·저장, 상세·확인 예제는 기존 공개 컴포넌트를 조합한다. 예제의 검색·검증·실패 시뮬레이션은 소비자 책임을 보여주는 로컬 fixture이며 새 공용 컴포넌트가 아니다.
+- 선택·탐색 버튼의 기본 HTML type은 button이다. 중첩 오버레이의 Escape는 최상위 한 레이어만 닫는다. 날짜 선택은 값을 변경하지 않는 명시적 취소 경로를 제공한다.
+- 사용자 입력의 범위 오류는 필드 오류 상태로 표현한다. 개발자의 잘못된 형식·범위 설정은 계약 오류로 유지한다.
+- Toast는 선택적 id로 표시 세션을 구분한다. id를 생략하면 메시지·action 레이블·열림 상태 변경으로 세션을 구분하며, 이전 작업의 완료·오류·취소는 새 세션에 반영하지 않는다.
+- Skeleton은 `feedback.skeleton.fill`을 사용한다(light grey.200, dark grey.600). 날짜 범위는 `selection.rangeBg`를 사용한다(light blue.50, dark grey.800). 필수 오류 안내는 최소 text-s-regular이다.
+- Table은 문자열 셀의 읽기용 표를 유지한다. 행별 행동은 ListItem 등으로 조합하며 복합 셀 API는 이번 범위에 추가하지 않는다.
+
 ## 6. Motion & Interaction
 
 | Recipe | Duration | Easing | Usage |

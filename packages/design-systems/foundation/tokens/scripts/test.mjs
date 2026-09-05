@@ -70,6 +70,10 @@ const required = [
   ['native composed text style', JSON.stringify(iosTheme.typography.textStyle['text-l-medium']) === JSON.stringify({ fontSize: 20, lineHeight: 28, fontFamily: 'System', fontWeight: '500', letterSpacing: 0 })],
   ['focus contract', tokens.foundation.focus.ringWidth === 3 && tokens.foundation.focus.ringOffset === 2],
   ...['light', 'dark'].flatMap((theme) => [
+    [`${theme} skeleton visible on canvas`, contrast(resolveValue(tokens.color.semantic[theme].feedback.skeleton.fill), resolveValue(tokens.color.semantic[theme].bg.canvas)) > 1.1],
+    [`${theme} skeleton visible on raised`, contrast(resolveValue(tokens.color.semantic[theme].feedback.skeleton.fill), resolveValue(tokens.color.semantic[theme].bg.raised)) > 1.1],
+    [`${theme} range text contrast`, contrast(resolveValue(tokens.color.semantic[theme].selection.rangeBg), resolveValue(tokens.color.semantic[theme].fg.primary)) >= 4.5],
+    [`${theme} outside-month date contrast`, contrast(resolveValue(tokens.color.semantic[theme].bg.raised), resolveValue(tokens.color.semantic[theme].fg.secondary)) >= 4.5],
     ...['primary', 'secondary', 'tertiary', 'danger'].map((variant) => [`${theme} ${variant} base contrast`, contrast(...actionPair(theme, variant)) >= 4.5]),
     ...['primary', 'secondary', 'tertiary', 'danger'].flatMap((variant) => ['bgHover', 'bgPressed'].map((state) => [`${theme} ${variant} ${state} contrast`, actionContrast(theme, variant, state) >= 4.5])),
     ...['positive', 'caution', 'negative', 'info'].map((status) => [`${theme} ${status} status contrast`, contrast(...statusPair(theme, status)) >= 4.5]),

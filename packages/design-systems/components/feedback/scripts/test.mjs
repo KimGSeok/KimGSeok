@@ -1,12 +1,11 @@
 import { readFile } from 'node:fs/promises';
+import { normalizeProgress, normalizeToastDuration } from '../src/contracts.ts';
 const [web, native, contracts] = await Promise.all([readFile(new URL('../src/web.tsx', import.meta.url), 'utf8'), readFile(new URL('../src/native.tsx', import.meta.url), 'utf8'), readFile(new URL('../src/contracts.ts', import.meta.url), 'utf8')]);
 if (!web.includes('prefers-reduced-motion') || !web.includes('role="progressbar"')) throw new Error('Web feedback motion/accessibility contract missing.');
 if (!native.includes('accessibilityRole="progressbar"') || !native.includes('accessibilityValue')) throw new Error('Native progress accessibility contract missing.');
 for (const component of ['Toast', 'Callout']) if (!web.includes(`function ${component}`) || !native.includes(`function Native${component}`)) throw new Error(`Missing feedback component ${component}.`);
 if (!contracts.includes('Number.isFinite(value)') || !contracts.includes('Math.min(1, Math.max(0, value))')) throw new Error('Progress value must reject non-finite numbers and clamp to 0..1.');
-const normalizeProgress = (value) => value === undefined || !Number.isFinite(value) ? undefined : Math.min(1, Math.max(0, value));
 for (const [input, expected] of [[NaN, undefined], [Infinity, undefined], [-Infinity, undefined], [-1, 0], [0.64, 0.64], [2, 1]]) if (!Object.is(normalizeProgress(input), expected)) throw new Error(`Unexpected normalization for ${input}`);
-const normalizeToastDuration = (value, persistent) => persistent || value === null ? null : value === undefined || !Number.isFinite(value) ? 4000 : Math.max(1000, value);
 for (const [input, persistent, expected] of [[NaN, false, 4000], [Infinity, false, 4000], [-1, false, 1000], [2500, false, 2500], [undefined, true, null], [null, false, null]]) if (!Object.is(normalizeToastDuration(input, persistent), expected)) throw new Error(`Unexpected Toast duration for ${input}`);
 if (!native.includes('NativeToastHost') || !native.includes('useSafeAreaInsets') || !native.includes('toast: ToastContract | null')) throw new Error('Native single-region safe-area Toast host contract missing.');
 if (!web.includes('ToastViewport') || !web.includes('알림 닫기') || !native.includes('알림 닫기')) throw new Error('Single Toast region or persistent dismiss contract missing.');

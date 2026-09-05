@@ -10,6 +10,7 @@ import {
   type RefObject,
 } from "react";
 import { Dialog } from "@kimgseok/design-overlays/web";
+import { Button } from "@kimgseok/design-button/web";
 import {
   assertCalendarContract,
   assertDatePickerContract,
@@ -167,7 +168,7 @@ export function Calendar({
         aria-label={monthLabel}
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(7, minmax(40px, 1fr))",
+          gridTemplateColumns: "repeat(7, minmax(44px, 1fr))",
         }}
       >
         <div role="row" style={{ display: "contents" }}>
@@ -214,7 +215,7 @@ export function Calendar({
                   role="gridcell"
                   style={{
                     background: inRange
-                      ? "var(--kg-color-bg-brand-subtle)"
+                      ? "var(--kg-color-selection-range-bg)"
                       : "transparent",
                   }}
                 >
@@ -246,7 +247,7 @@ export function Calendar({
                           : selected
                             ? "var(--kg-color-action-primary-fg)"
                             : outside
-                              ? "var(--kg-color-fg-tertiary)"
+                              ? "var(--kg-color-fg-secondary)"
                               : "var(--kg-color-fg-primary)",
                       outline: active
                         ? "var(--kg-foundation-focus-ring-width) solid var(--kg-color-border-focus)"
@@ -334,7 +335,7 @@ function FieldShell({
               ? "var(--kg-color-status-negative-fg)"
               : "var(--kg-color-fg-secondary)",
             display: "block",
-            fontSize: 13,
+            fontSize: 'var(--kg-typography-size-s-font-size)', lineHeight: 'var(--kg-typography-size-s-line-height)',
             marginTop: 6,
           }}
         >
@@ -384,6 +385,7 @@ export function DatePicker(props: DatePickerContract) {
         valueLabel={valueLabel}
       />
       <Dialog
+        footer={<Button variant="secondary" onAction={() => setOpen(false)}>{copy.cancel ?? "취소"}</Button>}
         initialFocusSelector="[data-calendar-active='true']"
         onOpenChange={setOpen}
         open={open}
@@ -463,6 +465,7 @@ export function DateRangePicker(props: DateRangePickerContract) {
         }
       />
       <Dialog
+        footer={<Button variant="secondary" onAction={() => changeOpen(false)}>{copy.cancel ?? "취소"}</Button>}
         initialFocusSelector="[data-calendar-active='true']"
         onOpenChange={changeOpen}
         open={open}
@@ -502,8 +505,8 @@ const dayStyle = {
   border: 0,
   borderRadius: 999,
   font: "inherit",
-  height: 40,
-  margin: 2,
+  height: 44,
+  margin: 0,
   padding: 0,
-  width: 40,
+  width: 44,
 } as const;
