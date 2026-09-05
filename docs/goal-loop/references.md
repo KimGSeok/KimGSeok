@@ -39,7 +39,8 @@ analogue.
 
 ## Daangn SEED — catalogue and architecture reference
 
-- Sources: <https://seed-design.io/docs>,
+- Sources: <https://v2.seed-design.io/>,
+  <https://v2.seed-design.io/component/text-button/style/>,
   <https://github.com/daangn/seed-design>,
   <https://seed-design.io/docs/foundation/design-token/%24color.fg.neutral>
 - Evidence: SEED publishes one token source across Web, iOS, Android and Lynx,
@@ -58,6 +59,19 @@ analogue.
 - Authority limit: SEED can justify including a component family and can inform
   token/package structure, but it cannot override Toss component behaviour,
   hierarchy, variants, or visual decisions.
+
+## shadcn/ui — developer ergonomics reference
+
+- Sources: <https://ui.shadcn.com/docs/components>,
+  <https://ui.shadcn.com/docs/registry/getting-started>
+- Evidence: shadcn/ui publishes a searchable component catalogue and a typed
+  registry format whose items point to concrete files and dependencies.
+- Retain: obvious component entry points, example-first documentation, and a
+  registry that supports distribution without becoming a user-facing taxonomy.
+- Reject: shadcn visual values, component APIs, framework assumptions, and the
+  idea that registry membership alone proves quality.
+- Authority limit: shadcn/ui can inform developer discovery and distribution;
+  it cannot select the final visual scale or certify this system's behavior.
 
 ## Wanted Montage — catalogue and documentation reference
 

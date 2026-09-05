@@ -1,6 +1,106 @@
 export type CatalogLayer = "foundation" | "primitive" | "composite" | "pattern";
 export type CatalogMaturity = "stable" | "candidate" | "planned";
 export type CatalogPlatform = "web" | "native";
+export type CatalogSelectionClass = "foundation" | "core" | "extended" | "optional";
+export type AssessmentStatus = "wrong" | "hold" | "correct";
+export type CatalogEntryKind = "foundation" | "component" | "pattern";
+
+export interface CatalogPresence {
+  readonly toss: boolean;
+  readonly seed: boolean;
+  readonly montage: boolean;
+}
+
+export const selectionClassDefinitions = [
+  {
+    selectionClass: "foundation",
+    description: "토큰·타이포그래피·아이콘처럼 다른 UI가 성립하기 전에 필요한 기반입니다.",
+  },
+  {
+    selectionClass: "core",
+    description: "Foundation을 제외하고 Toss·SEED v2·Montage 세 공개 카탈로그에 모두 존재합니다.",
+  },
+  {
+    selectionClass: "extended",
+    description: "Foundation을 제외하고 두 공개 카탈로그에 존재합니다.",
+  },
+  {
+    selectionClass: "optional",
+    description: "공개 카탈로그 교집합이 두 곳 미만인 선택적 확장으로, Core 완료를 막지 않습니다.",
+  },
+] as const satisfies readonly {
+  selectionClass: CatalogSelectionClass;
+  description: string;
+}[];
+
+const foundationSelectionNames = new Set(["Tokens", "Icon", "Text", "Heading"]);
+
+export function deriveCatalogSelectionClass(
+  name: string,
+  presence: CatalogPresence,
+): CatalogSelectionClass {
+  if (foundationSelectionNames.has(name)) return "foundation";
+  const referenceCount = Number(presence.toss) + Number(presence.seed) + Number(presence.montage);
+  if (referenceCount === 3) return "core";
+  if (referenceCount === 2) return "extended";
+  return "optional";
+}
+
+export const catalogMaturityPolicy = {
+  principle: "maturity는 배포/API 단계이며 현재 UI 품질이나 검증 완료를 뜻하지 않습니다.",
+  states: {
+    stable: "공개 import와 호환성 책임을 지는 배포 단계",
+    candidate: "실사용 근거를 더 모은 뒤 공개 계약 승격을 판단하는 단계",
+    planned: "구현 또는 공개 계약이 아직 없는 계획 단계",
+  },
+} as const;
+
+export const assessmentHardGates = [
+  "classification-integrity",
+  "authority-and-gap",
+  "public-contract",
+  "critical-accessibility",
+  "current-evidence",
+] as const;
+
+export const assessmentScorecard = [
+  { id: "source-and-classification", label: "출처·분류", points: 15 },
+  { id: "contract-and-implementation", label: "계약·구현", points: 20 },
+  { id: "visual-quality", label: "시각 품질", points: 20 },
+  { id: "interaction-and-accessibility", label: "상호작용·접근성", points: 20 },
+  { id: "platform-and-responsive", label: "플랫폼·반응형", points: 15 },
+  { id: "documentation-and-evidence", label: "문서·증거", points: 10 },
+] as const;
+
+export function getAssessmentStatus({
+  score,
+  blockingGateFailures = 0,
+  currentEvidence = true,
+}: {
+  score: number;
+  blockingGateFailures?: number;
+  currentEvidence?: boolean;
+}): AssessmentStatus {
+  if (!Number.isFinite(score) || score < 0 || score > 100) {
+    throw new Error("Assessment score must be between 0 and 100.");
+  }
+  if (!Number.isInteger(blockingGateFailures) || blockingGateFailures < 0) {
+    throw new Error("Assessment blockingGateFailures must be a non-negative integer.");
+  }
+  if (blockingGateFailures > 0 || score < 60) return "wrong";
+  if (!currentEvidence || score < 100) return "hold";
+  return "correct";
+}
+
+const assessmentTransitions: Readonly<Record<AssessmentStatus, readonly AssessmentStatus[]>> = {
+  wrong: ["wrong", "hold"],
+  hold: ["wrong", "hold", "correct"],
+  correct: ["wrong", "hold", "correct"],
+};
+
+export function canTransitionAssessment(from: AssessmentStatus, to: AssessmentStatus) {
+  return assessmentTransitions[from].includes(to);
+}
 
 export const componentCategoryDefinitions = [
   {
@@ -55,8 +155,14 @@ export const componentCategoryPolicy = {
 export interface CatalogEntry {
   readonly slug: string;
   readonly name: string;
+  /** @deprecated Use docsGroup for navigation placement and role for user role. */
   readonly category: CatalogCategory;
+  readonly docsGroup: CatalogCategory;
+  readonly entryKind: CatalogEntryKind;
+  readonly role: ComponentCategory | null;
   readonly layer: CatalogLayer;
+  readonly selectionClass: CatalogSelectionClass;
+  readonly selectionRationale: string;
   readonly maturity: CatalogMaturity;
   readonly platforms: readonly CatalogPlatform[];
   readonly packageName: string;
@@ -70,7 +176,7 @@ export interface CatalogEntry {
   readonly composition?: readonly string[];
   readonly tossAnalogue: "public" | "partial" | "none";
   readonly authority: "Toss public" | "Platform standard" | "Consumer policy";
-  readonly cataloguePresence: Readonly<{ toss: boolean; seed: boolean; montage: boolean }>;
+  readonly cataloguePresence: CatalogPresence;
   readonly gap: string;
 }
 
@@ -159,9 +265,23 @@ const referenceCatalogueNames = {
   montage: new Set(["Tokens", "Icon", "Text", "Heading", "Surface", "Divider", "Badge", "Avatar", "Card", "ListItem", "SkeletonRegion", "Table", "EmptyState", "Button", "IconButton", "ActionArea", "TextField", "TextArea", "Checkbox", "Switch", "RadioGroup", "Select", "Slider", "SearchField", "DateTimeField", "Calendar", "DatePicker", "DateRangePicker", "Spinner", "Progress", "Callout", "ToastViewport", "Dialog", "BottomSheet", "Tooltip", "Menu", "ConfirmationDialog", "Tabs", "SegmentedControl", "Chip", "ChipGroup", "FilterBar", "Pagination", "AppBar", "Breadcrumb"]),
 } as const;
 const presenceFor = (name: string) => ({ toss: referenceCatalogueNames.toss.has(name), seed: referenceCatalogueNames.seed.has(name), montage: referenceCatalogueNames.montage.has(name) });
+const selectionRationaleFor = (name: string, presence: CatalogPresence) => {
+  if (foundationSelectionNames.has(name)) return "다른 UI 계약보다 먼저 필요한 Foundation 항목";
+  const references = [
+    presence.toss ? "Toss" : null,
+    presence.seed ? "SEED v2" : null,
+    presence.montage ? "Montage" : null,
+  ].filter((reference): reference is string => Boolean(reference));
+  return references.length >= 2
+    ? `공개 카탈로그 교집합: ${references.join(" + ")}`
+    : "두 곳 이상의 공개 카탈로그 교집합 없음; 선택적 제품 패턴";
+};
 const stable = (name: string, category: CatalogCategory, layer: CatalogLayer, packageName: string, description: string, extra: Partial<CatalogEntry> = {}): CatalogEntry => {
   const tossAnalogue = extra.tossAnalogue ?? (referenceCatalogueNames.toss.has(name) ? "public" : "none");
   const platforms = extra.platforms ?? both;
+  const cataloguePresence = presenceFor(name);
+  const entryKind: CatalogEntryKind = category === "Foundation" ? "foundation" : category === "Patterns" ? "pattern" : "component";
+  const role = entryKind === "component" ? category as ComponentCategory : null;
   const importPaths = packageName === "consumer-owned" ? {} : Object.fromEntries(platforms.map((platform) => [platform, `${packageName}/${platform}`]));
   const exportNames = packageName === "@kimgseok/design-tokens" || packageName === "consumer-owned"
     ? {}
@@ -174,11 +294,10 @@ const stable = (name: string, category: CatalogCategory, layer: CatalogLayer, pa
     ? { when: "반복되는 접근성 또는 상태 수명주기를 하나의 과업으로 묶을 때 사용합니다.", avoid: "제품 고유 정책·데이터 요청·라우팅까지 컴포넌트에 넣지 않습니다." }
     : layer === "pattern"
       ? { when: "여러 컴포넌트를 제품의 조회·전환 정책에 맞춰 조립할 때 참고합니다.", avoid: "패턴을 독립 UI 패키지처럼 import하지 않습니다." }
-      : { when: "도메인 의미 없이 하나의 명확한 UI 역할이 필요할 때 사용합니다.", avoid: "비슷해 보인다는 이유로 다른 의미의 상태나 행동에 재사용하지 않습니다." };
+      : { when: "도메인 의미 없이 하나의 명확한\u00A0UI\u00A0역할이 필요할\u00A0때 사용합니다.", avoid: "비슷해 보인다는 이유로 다른 의미의 상태나 행동에 재사용하지 않습니다." };
   return {
     slug: name.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase(),
     name,
-    category,
     layer,
     packageName,
     importPaths,
@@ -192,9 +311,15 @@ const stable = (name: string, category: CatalogCategory, layer: CatalogLayer, pa
     platforms,
     tossAnalogue,
     authority: layer === "pattern" ? "Consumer policy" : tossAnalogue === "public" ? "Toss public" : "Platform standard",
-    cataloguePresence: presenceFor(name),
     gap: tossAnalogue === "public" ? "공개 Toss analogue 있음" : tossAnalogue === "partial" ? "Toss는 일부 경계만 공개; 나머지는 플랫폼 표준" : "공개 Toss analogue 없음; 플랫폼 표준과 원본 계약",
     ...extra,
+    category,
+    docsGroup: category,
+    entryKind,
+    role,
+    selectionClass: deriveCatalogSelectionClass(name, cataloguePresence),
+    selectionRationale: selectionRationaleFor(name, cataloguePresence),
+    cataloguePresence,
   };
 };
 
@@ -234,7 +359,7 @@ export const catalogSummary = catalog.reduce<Record<string, number>>((summary, e
   return summary;
 }, {});
 
-export const catalogCategories = Array.from(new Set(catalog.map((entry) => entry.category))).map((category) => ({
+export const catalogCategories = Array.from(new Set(catalog.map((entry) => entry.docsGroup))).map((category) => ({
   category,
-  entries: catalog.filter((entry) => entry.category === category),
+  entries: catalog.filter((entry) => entry.docsGroup === category),
 }));

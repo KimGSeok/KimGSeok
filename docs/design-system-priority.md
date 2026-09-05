@@ -1,90 +1,65 @@
 # Design System Implementation Priority
 
-선정 기준: TDS·SEED·Montage 공개 카탈로그로 컴포넌트 종류를 좁힌 뒤,
-제품 사용 빈도, 의존성, 접근성·상태 복잡도, Web/Native 공통 계약 가능성을
-함께 본다. 세 카탈로그의 직접 공통 항목을 Core로 우선한다.
+The typed catalogue owns component identity and classification. This document
+owns only the order in which those catalogue rows are improved. Do not maintain
+a second component-name inventory here.
 
-구현 기준: 선택된 컴포넌트의 API·상태·동작·시각 위계는 공개 Toss TDS를
-우선한다. SEED·Montage는 종류 선정과 구조·검증 참고이며 동등한 구현 기준이
-아니다. Toss 공개 대응물이 없으면 다른 시스템을 자동 채택하지 않고
-`Toss public analogue: none`과 `Ask`를 남긴다.
+## Independent axes
 
-등급: `[Foundation]`은 카탈로그 교집합 밖의 기반, `[Core]`는 3개 공개
-카탈로그 직접 공통, `[Extended]`는 2개 이상 또는 명시적 제품 필요,
-`[Optional]`은 단일 레퍼런스나 선택적 확장이다.
+- **Selection class** explains why an entry belongs in the system:
+  `Foundation`, `Core`, `Extended`, or `Optional`.
+- **Layer** explains how it is implemented:
+  `Foundation`, `Primitive`, `Composite`, or `Pattern`.
+- **Maturity** explains its public API/release stage:
+  `Stable`, `Candidate`, or `Planned`.
+- **Assessment** explains current evidence quality:
+  `Wrong`, `Hold`, or `Correct`.
 
-## P0 — Foundation and essential actions
+These values are never substituted for one another. In particular, `Stable`
+does not mean visually correct or fully runtime-verified.
 
-1. `[Foundation]` Typography
-2. `[Foundation]` Color and semantic themes
-3. `[Foundation]` Spacing, radius, elevation, motion, focus, touch target
-4. `[Core]` Button
-5. `[Extended]` IconButton
-6. `[Foundation]` Text / Heading
-7. `[Foundation]` Icon
+The generated [catalog classification matrix](goal-loop/coverage-matrix.md) is
+the complete row-level inventory. `packages/design-systems/catalog/src/registry.ts`
+is its sole source of truth.
 
-## P1 — Form primitives
+## Dependency-ordered batches
 
-8. `[Core]` TextField
-9. `[Core]` TextArea
-10. `[Core]` Checkbox
-11. `[Extended]` Radio / RadioGroup
-12. `[Core]` Switch
-13. `[Core]` Slider
-14. `[Extended]` Select / Native picker contract
-15. `[Extended]` FormField, Label, HelpText, ErrorMessage
+1. **P0 — Foundation and documentation shell**
+   - Classification/evaluation integrity, colour, typography, spacing, radius,
+     elevation, motion, focus, touch targets, Text, Heading, and Icon.
+2. **P1 — Essential actions and inputs**
+   - Actions plus Forms & Inputs whose contracts do not depend on overlays.
+3. **P2 — Feedback and overlays**
+   - Progress, result communication, focus containment, and dismissal
+     lifecycles.
+4. **P3 — Selection and navigation**
+   - View switching, location, pagination, and compact selection controls.
+5. **P4 — Content and layout**
+   - Reading, comparison, empty states, surfaces, and Web-only tabular content.
+6. **P5 — Candidate patterns**
+   - Consumer-owned combinations only after real product use proves a reusable
+     domain-neutral contract.
 
-## P2 — Feedback and overlays
+Within a batch, fix shared Foundation or Primitive causes before dependent
+Composites. Optional breadth does not block Core completion.
 
-16. `[Extended]` Spinner / Progress
-17. `[Extended]` Toast
-18. `[Extended]` Callout / Alert
-19. `[Extended]` Dialog
-20. `[Core]` BottomSheet
-21. `[Extended]` Tooltip
-22. `[Core]` Menu
+## Assessment cadence
 
-## P3 — Selection and navigation
+```text
+Wrong -- fix + static proof --> Hold
+Hold  -- next-round current runtime proof + 100/100 --> Correct
+```
 
-23. `[Core]` Tabs
-24. `[Core]` SegmentedControl
-25. `[Extended]` Chip
-26. `[Optional]` Pagination
-27. `[Extended]` NavigationBar / AppBar
-28. `[Optional]` Breadcrumb (Web)
-
-## P4 — Content composition
-
-29. `[Core]` Badge
-30. `[Extended]` Avatar
-31. `[Extended]` Divider
-32. `[Optional]` Card
-33. `[Extended]` ListItem
-34. `[Extended]` EmptyState
-35. `[Core]` Skeleton
-36. `[Extended]` Table (Web)
-
-## P5 — Product patterns
-
-37. `[Extended]` SearchField
-38. `[Extended]` FilterBar
-39. `[Extended]` ActionArea / BottomCTA
-40. `[Extended]` Confirmation flow
-41. `[Extended]` Date and time inputs
-42. `[Optional]` File upload
-
-각 컴포넌트는 세 카탈로그의 존재 여부와 선택 등급을 기록하고, 공개 Toss
-기준의 원본 계약, Web/Native 구현, Storybook/Expo fixture, 접근성 검증,
-적대적 리뷰 3회를 거친 뒤 다음 항목으로 넘어간다.
-
-Foundation/Core/Extended의 현재 항목별 상태와 증거는
-[`goal-loop/coverage-matrix.md`](goal-loop/coverage-matrix.md)를 단일 릴리스
-인덱스로 사용한다.
+- A `Wrong` row cannot become `Correct` in the same round.
+- Any changed `Correct` row returns to `Hold` until its evidence is refreshed.
+- A directly observed regression may demote `Correct` to `Wrong`.
+- Platform-specific `UNVERIFIED` evidence keeps the aggregate row at `Hold`.
 
 ## Storybook workflow
 
-- 로컬 실행: `pnpm storybook`
-- 정적 빌드: `pnpm build:storybook`
-- Web 컴포넌트는 Storybook의 Controls, Autodocs, a11y 검사를 통과해야 한다.
-- Native 컴포넌트는 동일 계약을 Expo specimen에서 검증하고, Storybook 문서에는
-  Web/Native 차이와 Native 증거 경로를 기록한다.
+- Local: `pnpm storybook`
+- Static build: `pnpm build:storybook`
+- Web components require controls, documented states, accessibility checks,
+  and representative interactions.
+- Native components share the semantic contract but keep platform-specific
+  runtime and screen-reader evidence separate from Web proof.
