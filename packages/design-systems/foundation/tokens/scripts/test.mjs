@@ -8,6 +8,7 @@ const css = await readFile(resolve(root, 'dist/css/variables.css'), 'utf8');
 const native = await readFile(resolve(root, 'dist/native/index.js'), 'utf8');
 const nativeModule = await import(new URL('../dist/native/index.js', import.meta.url));
 const colorsModule = await import(new URL('../dist/colors/index.js', import.meta.url));
+const colorTypes = await readFile(resolve(root, 'dist/colors/index.d.ts'), 'utf8');
 const typographyModule = await import(new URL('../dist/typography/index.js', import.meta.url));
 const iosTheme = nativeModule.getNativeTheme('light', 'ios');
 const androidTheme = nativeModule.getNativeTheme('light', 'android');
@@ -51,6 +52,11 @@ function actionContrast(theme, variant, state) {
 }
 
 const required = [
+  ['gray palette naming', 'gray' in tokens.color.palette && !('grey' in tokens.color.palette)],
+  ['gray public color exports', colorsModule.colors.gray500 === 'gray-500' && !('grey500' in colorsModule.colors) && colorsModule.paletteEntries.some(({ token, value }) => token === 'gray-50' && value === '#f9fafb')],
+  ['gray CSS output', css.includes('--kg-color-palette-gray-500: #8b95a1;') && !css.includes('--kg-color-palette-grey-')],
+  ['gray public type output', colorTypes.includes('readonly gray500: "gray-500"') && !colorTypes.includes('grey')],
+  ['gray Native palette', ['light', 'dark'].every((mode) => ['ios', 'android'].every((platform) => { const palette = nativeModule.getNativeTheme(mode, platform).color.palette; return palette.gray['500'] === '#8b95a1' && !('grey' in palette); }))],
   ['Toss blue500 baseline', tokens.color.palette.blue['500'] === '#3182f6'],
   ['light semantic brand', tokens.color.semantic.light.bg.brand === '{color.palette.blue.700}'],
   ['dark semantic focus', tokens.color.semantic.dark.border.focus === '{color.palette.blue.200}'],
