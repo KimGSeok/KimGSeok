@@ -121,7 +121,7 @@ function NativeField({
           accessible
           accessibilityLiveRegion={errorMessage ? "assertive" : "none"}
           style={[
-            theme.typography.role.caption,
+            theme.typography.role.label,
             {
               color: errorMessage
                 ? theme.color.semantic.status.negative.fg
@@ -182,6 +182,7 @@ export function NativeDatePicker({
   const locale = props.locale ?? "ko-KR";
   const [open, setOpen] = useState(false);
   const session = useRef(0);
+  useEffect(() => () => { session.current += 1; }, []);
   const close = () => {
     session.current += 1;
     setOpen(false);
@@ -190,6 +191,7 @@ export function NativeDatePicker({
     if (props.disabled && open) close();
   }, [props.disabled, open]);
   const begin = () => {
+    if (props.disabled) return;
     session.current += 1;
     setOpen(true);
   };
@@ -197,7 +199,8 @@ export function NativeDatePicker({
   const commit = (
     value: Parameters<NativePickerApi<Exclude<DateValue, "">>["commit"]>[0],
   ) => {
-    if (current !== session.current || props.disabled) return close();
+    if (!open || current !== session.current) return;
+    if (props.disabled) return close();
     assertDatePickerContract({ ...props, value });
     props.onValueChange(value);
     close();
@@ -220,7 +223,7 @@ export function NativeDatePicker({
       >
         {renderPicker({
           commit,
-          cancel: close,
+          cancel: () => { if (open && current === session.current) close(); },
           context: {
             kind: "single",
             value: props.value,
@@ -251,6 +254,7 @@ export function NativeDateRangePicker({
   const locale = props.locale ?? "ko-KR";
   const [open, setOpen] = useState(false);
   const session = useRef(0);
+  useEffect(() => () => { session.current += 1; }, []);
   const label = props.value.start
     ? `${formatDateForLocale(props.value.start, locale)} ${copy.rangeSeparator} ${props.value.end ? formatDateForLocale(props.value.end, locale) : copy.chooseEndDate}`
     : "";
@@ -262,12 +266,14 @@ export function NativeDateRangePicker({
     if (props.disabled && open) close();
   }, [props.disabled, open]);
   const begin = () => {
+    if (props.disabled) return;
     session.current += 1;
     setOpen(true);
   };
   const current = session.current;
   const commit = (value: DateRangeValue) => {
-    if (current !== session.current || props.disabled) return close();
+    if (!open || current !== session.current) return;
+    if (props.disabled) return close();
     assertDateRangePickerContract({ ...props, value });
     props.onValueChange(value);
     close();
@@ -285,7 +291,7 @@ export function NativeDateRangePicker({
       >
         {renderPicker({
           commit,
-          cancel: close,
+          cancel: () => { if (open && current === session.current) close(); },
           context: {
             kind: "range",
             value: props.value,

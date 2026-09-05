@@ -14,7 +14,7 @@ import { getRelatedComponentEntries } from "../app/component-relations.ts";
 
 assert.deepEqual(
   docsNavigation.map(({ label }) => label),
-  ["소개", "시작하기", "파운데이션", "컴포넌트"],
+  ["소개", "시작하기", "화면 조합", "파운데이션", "컴포넌트"],
   "top-level documentation navigation must expose only populated user paths",
 );
 

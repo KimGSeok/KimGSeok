@@ -13,8 +13,10 @@ export interface DatePickerMessages {
   notSelected: string;
   required: string;
   rangeSeparator: string;
+  cancel?: string;
 }
 export const koreanDatePickerMessages: DatePickerMessages = {
+  cancel: "취소",
   previousMonth: "이전 달",
   nextMonth: "다음 달",
   chooseDate: "날짜를 선택하세요",
@@ -26,6 +28,7 @@ export const koreanDatePickerMessages: DatePickerMessages = {
   rangeSeparator: "–",
 };
 export const englishDatePickerMessages: DatePickerMessages = {
+  cancel: "Cancel",
   previousMonth: "Previous month",
   nextMonth: "Next month",
   chooseDate: "Choose a date",

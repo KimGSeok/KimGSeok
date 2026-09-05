@@ -41,6 +41,7 @@ export const componentNavigationGroups: readonly DocsNavigationGroup[] =
 export const docsNavigation: readonly DocsNavigationItem[] = [
   { href: "/", label: "소개" },
   { href: "/getting-started", label: "시작하기" },
+  { href: "/compositions", label: "화면 조합" },
   {
     href: "/foundation",
     label: "파운데이션",

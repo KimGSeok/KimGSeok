@@ -105,7 +105,6 @@ assertDateTimeFieldContract(dateField);
 for (const value of [
   { ...dateField, value: "08/24/2026" },
   { ...dateField, value: "2026-02-30" },
-  { ...dateField, value: "2026-09-01" },
   {
     ...dateField,
     kind: "time",
@@ -134,6 +133,7 @@ for (const value of [
       `DateTimeField invariant accepted ${JSON.stringify(value)}`,
     );
 }
+assertDateTimeFieldContract({ ...dateField, value: "2026-09-01", errorMessage: "8월 날짜를 입력하세요." });
 assertDateTimeFieldContract({
   ...dateField,
   value: "2024-02-29",
@@ -146,7 +146,6 @@ if (
   !native.includes("renderPicker") ||
   !native.includes("effectiveOpen = open && !disabled") ||
   !native.includes("onSelect: select") ||
-  !native.includes("onCancel: () => onOpenChange(false)") ||
   !native.includes('Platform.OS === "ios" && errorMessage')
 )
   throw new Error("DateTimeField platform contract missing.");

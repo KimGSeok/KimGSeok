@@ -12,7 +12,7 @@
 
 | Family | Steps | 기준 값 | Usage |
 |---|---|---|---|
-| grey | 50–900 | `#f9fafb` → `#191f28` | 표면, 텍스트, 경계 |
+| gray | 50–900 | `#f9fafb` → `#191f28` | 표면, 텍스트, 경계 |
 | blue | 50–900 | `#e8f3ff` → `#194aa6` | 브랜드, 정보, focus |
 | red | 50–900 | `#ffeeee` → `#a51926` | 오류, 위험 |
 | orange | 50–900 | `#fff3e0` → `#e45600` | 주의 |
@@ -31,6 +31,7 @@
 - CSS에서는 `--kg-color-*`, React Native에서는 `getNativeTheme()`를 사용한다.
 - `Text color`는 `fg-primary` 같은 semantic foreground 또는 `red-500` 같은 lowercase palette union만 받는다.
 - `colors.red500`은 raw hex가 아니라 cross-platform token 식별자인 `red-500`을 반환한다.
+- 중립 팔레트의 공개 이름은 `gray`로 통일한다. CSS 변수·typed color·Native palette도 같은 표기를 사용하며, 표기 변경으로 색상값을 바꾸지 않는다.
 - 새 색상은 이 문서와 `tokens.json`을 함께 갱신한 뒤 사용한다.
 
 ## 3. Typography
@@ -105,6 +106,15 @@ Button, feedback, overlay, navigation, form, date-picker, primitive 패키지는
 - **States**: 예제 선택, Preview/Code, reset, 코드 복사 pending·성공·실패·재시도. 테마 전환은 실제 theme scope를 제공할 때만 노출한다.
 - **Accessibility**: tab/tabpanel 관계, 복사 결과 live region, keyboard focus, overlay의 기존 focus lifecycle을 보존한다.
 - **Boundary**: 예제는 네트워크·라우팅·비즈니스 정책을 소유하지 않으며 Docs 전용 motion을 컴포넌트에 덧씌우지 않는다.
+
+### Composition examples and recovery
+
+- 목록 탐색, 입력·저장, 상세·확인 예제는 기존 공개 컴포넌트를 조합한다. 예제의 검색·검증·실패 시뮬레이션은 소비자 책임을 보여주는 로컬 fixture이며 새 공용 컴포넌트가 아니다.
+- 선택·탐색 버튼의 기본 HTML type은 button이다. 중첩 오버레이의 Escape는 최상위 한 레이어만 닫는다. 날짜 선택은 값을 변경하지 않는 명시적 취소 경로를 제공한다.
+- 사용자 입력의 범위 오류는 필드 오류 상태로 표현한다. 개발자의 잘못된 형식·범위 설정은 계약 오류로 유지한다.
+- Toast는 선택적 id로 표시 세션을 구분한다. id를 생략하면 메시지·action 레이블·열림 상태 변경으로 세션을 구분하며, 이전 작업의 완료·오류·취소는 새 세션에 반영하지 않는다.
+- Skeleton은 `feedback.skeleton.fill`을 사용한다(light gray.200, dark gray.600). 날짜 범위는 `selection.rangeBg`를 사용한다(light blue.50, dark gray.800). 필수 오류 안내는 최소 text-s-regular이다.
+- Table은 문자열 셀의 읽기용 표를 유지한다. 행별 행동은 ListItem 등으로 조합하며 복합 셀 API는 이번 범위에 추가하지 않는다.
 
 ## 6. Motion & Interaction
 

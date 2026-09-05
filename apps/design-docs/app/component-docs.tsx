@@ -37,7 +37,8 @@ export interface ComponentDocDefinition {
 const example = (id: string, title: string, description: string, sourcePath: string, Preview: ComponentType): ComponentExampleDefinition => ({ id, title, description, sourcePath, Preview });
 const prop = (name: string, type: string, defaultValue: string, required: boolean, description: string): ApiPropDefinition => ({ name, type, defaultValue, required, description });
 
-export const componentDocs: Readonly<Record<string, ComponentDocDefinition>> = {
+export const richDocumentationSlugs = ["text", "button", "text-field", "dialog", "tabs", "progress", "skeleton-region"] as const;
+export const componentDocs: Readonly<Record<(typeof richDocumentationSlugs)[number], ComponentDocDefinition>> = {
   text: {
     examples: [example("styles", "스타일과 색상", "제목·본문 스타일과 semantic/palette 색상 토큰을 함께 비교합니다.", "apps/design-examples/src/text-styles.tsx", TextStylesExample)],
     api: [
@@ -65,7 +66,7 @@ export const componentDocs: Readonly<Record<string, ComponentDocDefinition>> = {
       prop("onActionError", "(error: unknown) => void", "—", false, "실패 결과를 소비자 화면에서 복구하도록 전달합니다."),
     ],
     accessibility: ["기본 button semantics와 keyboard\u00A0activation을 유지합니다.", "loading과 pending 동안 aria-busy와 disabled를 함께 노출합니다.", "레이블은 결과가 아니라 실행할 행동을 설명합니다."],
-    motion: { trigger: "hover · press", token: "motion.fast", behavior: "배경색만 전환하며 위치나 크기를 움직이지 않습니다.", reducedMotion: "공간 이동이 없는 색상 상태 전환만 유지합니다." },
+    motion: { trigger: "hover · press", token: "motion.press", behavior: "배경색만 전환하며 위치나 크기를 움직이지 않습니다.", reducedMotion: "공간 이동이 없는 색상 상태 전환만 유지합니다." },
     platformNote: "Web과 Native가 variant·size·비동기 잠금 계약을 공유하며 플랫폼별 press/focus 입력만 다릅니다.",
   },
   "text-field": {
@@ -82,7 +83,7 @@ export const componentDocs: Readonly<Record<string, ComponentDocDefinition>> = {
       prop("value / defaultValue", "string", "—", false, "제어 또는 비제어 값을 선택합니다."),
     ],
     accessibility: ["label과 input은 생성된 id로 연결됩니다.", "오류와 도움말은 aria-describedby로 입력에 연결됩니다.", "오류 상태는 색상뿐 아니라 문장으로 전달합니다."],
-    platformNote: "Web은 input 속성을 확장하고, Native는 TextInput 계약과 onValueChange를 사용합니다.",
+    platformNote: "Web은 input 속성을 확장하고, Native는 TextInput 계약과 onChangeText를 사용합니다.",
   },
   dialog: {
     examples: [example("default", "기본", "열기·닫기·포커스 복귀를 실제로 확인합니다.", "apps/design-examples/src/dialog-default.tsx", DialogDefaultExample)],
@@ -120,16 +121,16 @@ export const componentDocs: Readonly<Record<string, ComponentDocDefinition>> = {
       prop("size", '"sm" | "md"', '"md"', false, "진행 막대의 두께를 선택합니다."),
     ],
     accessibility: ["determinate 상태는 progressbar value를 노출합니다.", "indeterminate 상태는 존재하지 않는 진행률을 0으로 표시하지 않습니다.", "레이블은 진행 중인 작업의 대상을 설명합니다."],
-    motion: { trigger: "value change · indeterminate", token: "motion.normal · motion.slow", behavior: "진행률은 transform으로 전환하고 불확정 상태는 반복 이동합니다.", reducedMotion: "반복 이동을 정적인 패턴으로 바꾸고 진행 상태 의미는 유지합니다." },
-    platformNote: "두 플랫폼 모두 determinate/indeterminate 의미를 공유하고 각 렌더러의 애니메이션 API를 사용합니다.",
+    motion: { trigger: "value change · indeterminate", token: "motion.stateChange · motion.progressLoop", behavior: "진행률은 transform으로 전환하고 불확정 상태는 반복 이동합니다.", reducedMotion: "진행률 전환을 즉시 적용하고 반복 이동을 정적인 패턴으로 바꿉니다. 진행 상태 의미는 유지합니다." },
+    platformNote: "진행률 의미는 공유합니다. Web은 transform 전환을, Native는 즉시 width 갱신을 사용합니다. Native 불확정 상태는 ActivityIndicator이며 reduced-motion에서는 정적 표시로 바뀝니다.",
   },
   "skeleton-region": {
     examples: [example("recipes", "콘텐츠 구조 recipe", "목록과 카드의 최종 레이아웃을 유지하는 구조화된 로딩 표본입니다.", "apps/design-examples/src/skeleton-recipes.tsx", SkeletonRecipesExample)],
     api: [
       prop("accessibilityLabel", "string", "—", true, "불러오는 콘텐츠 대상을 설명하는 busy region 이름입니다."),
-      prop("recipe", '"text-block" | "list-item" | "avatar-row" | "card" | "table-row" | "form"', "—", false, "최종 콘텐츠 구조와 대응하는 검토된 placeholder 조합입니다."),
-      prop("count", "1–8", "recipe 기본값", false, "반복되는 목록 또는 행의 개수입니다."),
-      prop("items", "readonly SkeletonItem[]", "—", false, "마이그레이션과 예외 레이아웃을 위한 저수준 조합입니다. recipe와 함께 사용할 수 없습니다."),
+      prop("recipe", '"text-block" | "list-item" | "avatar-row" | "card" | "table-row" | "form"', "—", false, "recipe 또는 items 중 정확히 하나가 필수입니다. 최종 콘텐츠 구조와 대응하는 placeholder 조합을 선택합니다."),
+      prop("count", "1–8", "recipe 기본값", false, "recipe를 사용할 때만 지정할 수 있는 반복 개수입니다. items와 함께 사용할 수 없습니다."),
+      prop("items", 'readonly { shape?: "text" | "block" | "circle"; size?: "sm" | "md" | "lg" | "full" }[]', "—", false, "마이그레이션과 예외 레이아웃을 위한 저수준 조합입니다. recipe와 함께 사용할 수 없습니다."),
     ],
     accessibility: ["개별 placeholder는 장식 요소로 숨깁니다.", "영역 하나에 aria-busy와 작업 대상을 설명하는 레이블을 제공합니다.", "성공 콘텐츠 또는 오류가 준비되면 전체 SkeletonRegion을 교체합니다."],
     motion: { trigger: "loading region mounted", token: "motion.skeletonPulse", behavior: "1.6초 주기의 낮은 대비 opacity pulse만 반복합니다.", reducedMotion: "pulse를 제거하고 정적인 placeholder 구조를 유지합니다." },
@@ -138,5 +139,5 @@ export const componentDocs: Readonly<Record<string, ComponentDocDefinition>> = {
 };
 
 export function getComponentDoc(slug: string) {
-  return componentDocs[slug];
+  return Object.hasOwn(componentDocs, slug) ? componentDocs[slug as keyof typeof componentDocs] : undefined;
 }

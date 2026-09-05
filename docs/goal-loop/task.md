@@ -32,14 +32,14 @@ Current inventory: 46 catalogue entries = 44 stable public components,
 
 ### Next implementation batch
 
-- [ ] Replace the legacy `motion.fast` Button documentation label with the
+- [x] Replace the legacy `motion.fast` Button documentation label with the
   semantic `press` recipe used by the implementation.
-- [ ] Replace the legacy `motion.normal` / `motion.slow` Progress labels with
+- [x] Replace the legacy `motion.normal` / `motion.slow` Progress labels with
   the semantic `stateChange` / `progressLoop` recipes and describe Web/Native
   behavior separately where their renderers differ.
-- [ ] Add a contract check that rejects legacy motion labels in active rich
+- [x] Add a contract check that rejects legacy motion labels in active rich
   documentation and validates documented recipe names against the motion SSOT.
-- [ ] Make rich-documentation membership auditable against the typed catalogue
+- [x] Make rich-documentation membership auditable against the typed catalogue
   so a component cannot silently fall back to the generic page.
 - [ ] Migrate the first state-heavy batch to rich documentation using existing
   component contracts and Storybook evidence: `BottomSheet`, `Menu`,
@@ -48,7 +48,39 @@ Current inventory: 46 catalogue entries = 44 stable public components,
 - [ ] Migrate the remaining 27 generic component pages incrementally after the
   first batch, without changing component behavior merely for documentation.
 
-### Explicitly deferred or conditional
+### Composition safety implementation receipt (2026-09-05)
+
+Base: `e7e210af82cfb04237dc8b8d51dbca23a28a9df5` plus this uncommitted
+working-tree patch. This receipt does not re-score or certify all components.
+
+- [x] Preserve 44 public components; add three consumer examples, not new
+  shared components: list/search/filter/pagination, form/save/retry, and
+  detail/date/confirmation/Toast. Docs and Storybook import the same sources.
+- [x] Default auxiliary form buttons to `type="button"`; preserve Select's
+  supplied id and permit DateTimeField user range errors to remain field state.
+- [x] Consume Escape only at the top Dialog/BottomSheet or active Menu;
+  add pointer cancellation to both Web date-picker composites.
+- [x] Isolate Toast async completion/rejection by notification/open session;
+  ignore stale Native picker/select callbacks after close, disable, or replacement.
+- [x] Use semantic Skeleton/range fills; 44px calendar date targets; readable
+  outside-month dates and error text; remove reduced-motion Progress transitions.
+- [x] Correct Native TextField, Skeleton and motion Docs contracts. Execute
+  actual feedback normalizers instead of duplicate functions in their tests.
+- [x] `pnpm test`: existing workspace checks and 19 no-browser regression tests.
+- [x] Package, examples, Docs, Next consumer and Native specimen type checks.
+- [x] Public package builds, `pnpm verify:packages` (11 packages),
+  `pnpm build:design-docs` (55 static pages), and `pnpm build:storybook`.
+- [x] HTTP 200 at `http://localhost:3005/compositions`; this is server response
+  evidence, not rendered or interactive browser evidence.
+
+Evidence limits: the React execution tests mock DOM/Native host boundaries;
+they verify component handlers, markup, state and lifecycle, not actual focus,
+layout, screen-reader output or device behavior. React test renderer emits its
+upstream deprecation warning. Rich Docs remain 7 pages; 37 generic pages have
+not been migrated by this patch. Shared examples are now 13 (10 individual + 3
+compositions). No commit, push, publishing, CI redesign or inventory expansion.
+
+### Remaining deferred or conditional work
 
 - [ ] `DEFERRED_QA UNVERIFIED`: run browser-rendered accessibility, responsive,
   visual, and interaction checks only when explicitly requested.

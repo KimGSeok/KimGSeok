@@ -42,7 +42,12 @@ are contract-tested.
 - A changed `Correct` item returns to `Hold`; an observed regression may return
   it directly to `Wrong`.
 
-## Current assessment snapshot
+## Historical assessment snapshot
+
+The snapshot below predates the 2026-09-05 composition-safety working-tree
+patch based on `e7e210a`. It is not current completeness or rendered-quality
+evidence. See `task.md` for the bounded implementation receipt and remaining
+`DEFERRED_QA UNVERIFIED` browser/device checks. No new score is assigned.
 
 - Snapshot ID: `design-docs-2026-09-04-r1`
 - Baseline HEAD: `2e1e17e`

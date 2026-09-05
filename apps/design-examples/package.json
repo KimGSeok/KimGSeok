@@ -3,6 +3,9 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./composition-list": "./src/composition-list.tsx",
+    "./composition-form": "./src/composition-form.tsx",
+    "./composition-detail": "./src/composition-detail.tsx",
     "./button-default": "./src/button-default.tsx",
     "./button-variants": "./src/button-variants.tsx",
     "./dialog-default": "./src/dialog-default.tsx",
@@ -16,6 +19,7 @@
   },
   "dependencies": {
     "@kimgseok/design-button": "workspace:*",
+    "@kimgseok/design-date-picker": "workspace:*",
     "@kimgseok/design-feedback": "workspace:*",
     "@kimgseok/design-forms": "workspace:*",
     "@kimgseok/design-navigation": "workspace:*",

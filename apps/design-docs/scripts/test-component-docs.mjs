@@ -16,7 +16,12 @@ for (const slug of ["text", "button", "text-field", "dialog", "tabs", "progress"
 const examplePaths = [...docsSource.matchAll(/sourcePath: string|"(apps\/design-examples\/src\/[^"]+\.tsx)"/g)]
   .map((match) => match[1])
   .filter(Boolean);
-assert.equal(examplePaths.length, 10, "the documentation set must expose ten maintained examples");
+const compositionNames = ["composition-list", "composition-form", "composition-detail"];
+const compositionPage = readFileSync(new URL("../app/compositions/page.tsx", import.meta.url), "utf8");
+for (const name of compositionNames) {
+  assert.ok(compositionPage.includes(`@kimgseok/design-examples/${name}`));
+  examplePaths.push(`apps/design-examples/src/${name}.tsx`);
+}
 assert.equal(new Set(examplePaths).size, examplePaths.length, "each example source must be unique");
 for (const path of examplePaths) {
   assert.ok(existsSync(new URL(path, repo)), `${path} must exist`);
@@ -62,9 +67,9 @@ await assert.rejects(
   "a stalled clipboard boundary must time out",
 );
 
-for (const storyFile of ["Button", "Feedback", "Forms", "Navigation", "Overlays", "Primitives"]) {
+for (const storyFile of ["Button", "Feedback", "Forms", "Navigation", "Overlays", "Primitives", "Compositions"]) {
   const source = readFileSync(new URL(`../../storybook/stories/${storyFile}.stories.tsx`, import.meta.url), "utf8");
   assert.match(source, /@kimgseok\/design-examples\//, `${storyFile} stories must reuse the Docs example source`);
 }
 
-console.log(`Component Docs checks passed (7 rich components, ${examplePaths.length} shared examples)`);
+console.log(`Component Docs checks passed (${examplePaths.length} shared examples including 3 product compositions)`);

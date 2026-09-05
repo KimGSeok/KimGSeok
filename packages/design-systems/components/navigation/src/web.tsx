@@ -129,6 +129,7 @@ export function Tabs({
                 refs.current[index] = node;
               }}
               role="tab"
+              type="button"
               style={{
                 background: "transparent",
                 border: 0,
@@ -259,6 +260,7 @@ export function SegmentedControl({
               refs.current[index] = node;
             }}
             role="radio"
+            type="button"
             style={{
               background: selected
                 ? "var(--kg-color-bg-raised)"

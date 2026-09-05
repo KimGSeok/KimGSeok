@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   AccessibilityInfo,
   Platform,
@@ -101,7 +101,7 @@ function Field({
         <Text
           accessible
           style={[
-            theme.typography.role.caption,
+            theme.typography.role.label,
             {
               color: errorMessage
                 ? theme.color.semantic.status.negative.fg
@@ -377,8 +377,19 @@ export function NativeSelect({
         `${label}, ${errorMessage}`,
       );
   }, [errorMessage, label]);
-  const close = () => onOpenChange(false);
+  const effectiveOpen = open && !disabled;
+  const token = useMemo(() => ({}), [effectiveOpen]);
+  const activeSession = useRef<object | null>(null);
+  useLayoutEffect(() => {
+    activeSession.current = effectiveOpen ? token : null;
+    return () => { activeSession.current = null; };
+  }, [effectiveOpen, token]);
+  useEffect(() => {
+    if (disabled && open) onOpenChange(false);
+  }, [disabled, open, onOpenChange]);
+  const close = () => { if (activeSession.current === token) onOpenChange(false); };
   const select = (nextValue: string) => {
+    if (!effectiveOpen || activeSession.current !== token) return;
     const option = options.find((candidate) => candidate.value === nextValue);
     if (!option || option.disabled) return;
     onValueChange(nextValue);
@@ -402,7 +413,7 @@ export function NativeSelect({
         }
         accessibilityLabel={`${label}${required ? ", 필수" : ""}, ${valueLabel}`}
         accessibilityRole="button"
-        accessibilityState={{ disabled, expanded: open }}
+        accessibilityState={{ disabled, expanded: effectiveOpen }}
         aria-invalid={Boolean(errorMessage)}
         disabled={disabled}
         onBlur={() => setFocused(false)}
@@ -432,7 +443,7 @@ export function NativeSelect({
         <Text
           accessible={!errorMessage}
           style={[
-            theme.typography.role.caption,
+            theme.typography.role.label,
             {
               color: errorMessage
                 ? theme.color.semantic.status.negative.fg
@@ -443,9 +454,9 @@ export function NativeSelect({
           {message}
         </Text>
       ) : null}
-      {open
+      {effectiveOpen
         ? renderSheet({
-            open,
+            open: effectiveOpen,
             options,
             value,
             onSelect: select,
@@ -552,7 +563,7 @@ export function NativeSearchField({
         >
           <Text
             style={[
-              theme.typography.role.caption,
+              theme.typography.role.label,
               { color: theme.color.semantic.fg.secondary },
             ]}
           >
@@ -735,7 +746,7 @@ export function NativeSlider({
         >
           <Text
             style={[
-              theme.typography.role.caption,
+              theme.typography.role.label,
               { color: theme.color.semantic.fg.secondary },
             ]}
           >
@@ -744,7 +755,7 @@ export function NativeSlider({
           {labels.mid ? (
             <Text
               style={[
-                theme.typography.role.caption,
+                theme.typography.role.label,
                 { color: theme.color.semantic.fg.secondary },
               ]}
             >
@@ -753,7 +764,7 @@ export function NativeSlider({
           ) : null}
           <Text
             style={[
-              theme.typography.role.caption,
+              theme.typography.role.label,
               { color: theme.color.semantic.fg.secondary },
             ]}
           >
@@ -819,7 +830,14 @@ export function NativeDateTimeField({
   const message = errorMessage ?? helpText;
   const displayValue = value ? formatValue(value) : "선택하세요";
   const effectiveOpen = open && !disabled;
+  const token = useMemo(() => ({}), [effectiveOpen]);
+  const activeSession = useRef<object | null>(null);
+  useLayoutEffect(() => {
+    activeSession.current = effectiveOpen ? token : null;
+    return () => { activeSession.current = null; };
+  }, [effectiveOpen, token]);
   const select = (next: string) => {
+    if (!effectiveOpen || activeSession.current !== token) return;
     assertDateTimeFieldContract({
       label,
       kind,
@@ -895,7 +913,7 @@ export function NativeDateTimeField({
         <Text
           accessibilityLiveRegion={errorMessage ? "assertive" : "none"}
           style={[
-            theme.typography.role.caption,
+            theme.typography.role.label,
             {
               color: errorMessage
                 ? theme.color.semantic.status.negative.fg
@@ -914,7 +932,7 @@ export function NativeDateTimeField({
             min,
             max,
             onSelect: select,
-            onCancel: () => onOpenChange(false),
+            onCancel: () => { if (activeSession.current === token) onOpenChange(false); },
           })
         : null}
     </View>
